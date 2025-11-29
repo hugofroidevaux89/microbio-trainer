@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microbiología Quiz</title>
+    <title>Microbiología UNR - Master Quiz</title>
     <style>
         :root {
             --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --clinical-color: #e67e22;
+            --accent-color: #2980b9;
+            --clinical-color: #d35400;
+            --fact-color: #27ae60;
             --bg-color: #ecf0f1;
             --text-color: #2c3e50;
             --correct-color: #27ae60;
             --wrong-color: #c0392b;
-            --ai-color: #8e44ad;
             --card-bg: #ffffff;
         }
 
@@ -27,31 +27,31 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 15px;
+            padding: 10px;
         }
 
         .container {
             background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            max-width: 650px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            max-width: 750px;
             width: 100%;
             text-align: center;
             position: relative;
         }
 
-        /* --- Header --- */
+        /* Header */
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid #ecf0f1;
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
 
-        h1 { font-size: 1.5rem; color: var(--primary-color); margin: 0; }
+        h1 { font-size: 1.3rem; color: var(--primary-color); margin: 0; text-align: left; }
         
         .score-badge { 
             background: var(--primary-color); 
@@ -62,12 +62,12 @@
             font-weight: bold;
         }
 
-        /* --- Configuración --- */
+        /* Configuración Inicial */
         .config-box {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            margin: 20px 0;
+            margin: 30px 0;
         }
 
         select {
@@ -81,61 +81,66 @@
             cursor: pointer;
         }
 
-        /* --- Quiz UI --- */
-        .badge-type {
+        /* Estilos de Pregunta */
+        .badge-column {
             display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 10px;
+            color: white;
         }
 
-        .type-theory { background: var(--accent-color); color: white; }
-        .type-clinical { background: var(--clinical-color); color: white; }
+        /* Diferenciar colores según tipo de dato */
+        .type-fact { background-color: var(--fact-color); } /* Gram, Catalasa */
+        .type-desc { background-color: var(--clinical-color); } /* Clínica, Patogenia */
 
-        .question-content { margin: 20px 0; }
+        .question-content { margin: 10px 0 20px 0; }
 
-        .main-text {
-            font-size: 1.3rem;
-            font-weight: 600;
+        .microbe-title {
+            font-size: 1.6rem;
+            font-weight: 700;
             margin-bottom: 10px;
             color: #2c3e50;
-        }
-
-        .sub-text {
-            font-size: 1.1rem;
             font-style: italic;
-            color: #555;
-            min-height: 1.5em;
         }
 
-        /* --- Botones de Opción --- */
+        .question-text {
+            font-size: 1.1rem;
+            color: #555;
+            min-height: 1.2em;
+            font-weight: 500;
+        }
+
+        /* Grilla de Opciones */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
         }
 
-        @media (min-width: 500px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
 
         button.option-btn {
-            padding: 15px;
-            font-size: 1rem;
+            padding: 12px;
+            font-size: 0.95rem;
             border: 2px solid #bdc3c7;
             border-radius: 8px;
             background: white;
             cursor: pointer;
             color: #34495e;
             transition: all 0.2s;
-            font-weight: 600;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
+            min-height: 60px;
+            line-height: 1.3;
         }
 
         button.option-btn:hover:not([disabled]) {
@@ -147,71 +152,61 @@
         button.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; }
         button.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; opacity: 0.8; }
 
-        /* --- Botones de Acción --- */
+        /* Feedback Area */
+        .feedback-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #eef2f3;
+            border-left: 5px solid var(--accent-color);
+            text-align: left;
+            display: none;
+        }
+        
+        .feedback-visible { display: block; animation: fadeIn 0.3s; }
+
+        .feedback-title { font-weight: bold; display: block; margin-bottom: 5px; color: var(--primary-color); }
+        .feedback-content { font-size: 0.95rem; line-height: 1.4; color: #444; }
+
+        /* Botones Acción */
         .action-btn {
-            background-color: var(--accent-color);
+            background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 15px;
             font-size: 1rem;
             border-radius: 8px;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 15px;
             cursor: pointer;
             font-weight: bold;
         }
         
-        .action-btn:hover { background-color: #2980b9; }
+        .action-btn:hover { background-color: #34495e; }
 
         .ai-btn {
             background: linear-gradient(45deg, #8e44ad, #9b59b6);
             color: white;
             margin-top: 10px;
-            display: none;
             border: none;
             cursor: pointer;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 6px;
             font-weight: bold;
             width: 100%;
-            transition: transform 0.2s;
+            font-size: 0.9rem;
         }
-
-        .ai-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
-        }
-
-        /* --- Feedback y Errores --- */
-        .feedback-area {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            background: #f8f9fa;
-            display: none;
-        }
-        
-        .feedback-visible { display: block; animation: fadeIn 0.3s; }
-
-        .mistakes-container {
-            margin-top: 20px;
-            text-align: left;
-            background-color: #fff5f5;
-            border: 1px solid #ffcccc;
-            border-radius: 8px;
-            padding: 15px;
-        }
-
-        .mistakes-list {
-            padding-left: 25px;
-            margin: 10px 0 0 0;
-            color: #c0392b;
-        }
-        
-        .mistakes-list li { margin-bottom: 8px; }
 
         .hide { display: none; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .mistakes-list {
+            text-align: left;
+            padding-left: 20px;
+            color: var(--wrong-color);
+            margin-top: 10px;
+        }
+        .mistakes-list li { margin-bottom: 5px; }
 
     </style>
 </head>
@@ -219,21 +214,22 @@
 
     <!-- PANTALLA DE INICIO -->
     <div class="container" id="start-screen">
-        <h1>Microbiología</h1>
-        <p style="color: #666; margin-bottom: 30px;">Selecciona la configuración:</p>
+        <h1>Microbiología UNR</h1>
+        <p style="color: #7f8c8d; margin-bottom: 20px;">
+            Base de datos completa: Datos de los PDFs + Datos bioquímicos básicos.
+        </p>
         
         <div class="config-box">
-            <label for="q-count-select" style="font-weight: bold; text-align: left;">Cantidad de preguntas:</label>
+            <label for="q-count-select" style="font-weight: bold; text-align: left;">Configuración:</label>
             <select id="q-count-select">
-                <option value="5">5 Preguntas (Rápido)</option>
-                <option value="10" selected>10 Preguntas (Estándar)</option>
-                <option value="15">15 Preguntas</option>
-                <option value="20">20 Preguntas</option>
+                <option value="10">10 Preguntas (Rápido)</option>
+                <option value="20" selected>20 Preguntas (Estándar)</option>
+                <option value="50">50 Preguntas (Intensivo)</option>
                 <option value="999">Todas las posibles</option>
             </select>
         </div>
 
-        <button class="action-btn" onclick="initGame()">COMENZAR EXAMEN</button>
+        <button class="action-btn" onclick="initGame()">COMENZAR</button>
     </div>
 
     <!-- PANTALLA DE JUEGO -->
@@ -247,11 +243,11 @@
 
         <!-- Área de la pregunta -->
         <div id="quiz-area">
-            <span id="question-badge" class="badge-type type-theory">Teoría</span>
+            <span id="column-badge" class="badge-column">CATEGORÍA</span>
             
             <div class="question-content">
-                <div id="primary-display" class="main-text">S. aureus</div>
-                <div id="secondary-display" class="sub-text">¿Es catalasa positivo?</div>
+                <div id="microbe-display" class="microbe-title">Nombre Microbio</div>
+                <div id="question-text" class="question-text">¿Pregunta?</div>
             </div>
             
             <div class="options-grid" id="options-container">
@@ -259,9 +255,10 @@
             </div>
         </div>
 
+        <!-- Feedback Didáctico -->
         <div id="feedback-area" class="feedback-area">
-            <strong id="feedback-title"></strong>
-            <p id="feedback-detail" style="margin: 5px 0 0 0; font-size: 0.95rem;"></p>
+            <span id="feedback-status" class="feedback-title"></span>
+            <div id="feedback-text" class="feedback-content"></div>
             <button id="ai-btn" class="ai-btn" onclick="askAI()">✨ Explicar con IA</button>
         </div>
         
@@ -274,8 +271,8 @@
         <div style="font-size: 3rem; font-weight: bold; color: var(--accent-color);" id="final-score">0%</div>
         <p id="final-message" style="font-size: 1.1rem; font-weight: bold;"></p>
 
-        <div id="mistakes-container" class="mistakes-container hide">
-            <h3 style="margin: 0; color: #c0392b; font-size: 1rem;">Temas a repasar:</h3>
+        <div id="mistakes-container" class="hide" style="margin-top: 20px; text-align: left; background: #fff5f5; padding: 15px; border-radius: 8px;">
+            <h3 style="margin: 0 0 10px 0; color: #c0392b; font-size: 1rem;">Repasar estos temas:</h3>
             <ul id="mistakes-list" class="mistakes-list"></ul>
         </div>
 
@@ -283,160 +280,332 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS EXTENDIDA (3 CASOS POR MICROBIO) --- */
+        /* 
+           BASE DE DATOS UNIFICADA (ULTIMATE)
+           Combina datos cortos (Gram, Forma) con datos largos (PDFs).
+        */
         const microbios = [
+            // --- VIRUS ---
+            { 
+                nombre: "Virus Junín (Fiebre Hemorrágica Arg)",
+                familia: "Arenavirus",
+                genoma: "ARN envuelto",
+                vector: "Ratón maicero (Calomys musculinus)",
+                clinica: "Fiebre hemorrágica argentina. Inicio: decaimiento, cefalea. Hemorragias severas: hematemesis, melena. Ausencia de tos productiva.",
+                diagnostico: "Células redondas en orina (cilindros hialinos). PCR. ELISA.",
+                zona_endemica: "Pampa húmeda (noroeste de Bs As, sur de Santa Fe, Córdoba, La Pampa)."
+            },
+            {
+                nombre: "Hantavirus (Andes)",
+                familia: "Bunyavirus",
+                vector: "Ratón colilargo (Oligoryzomys longicaudatus)",
+                clinica: "Síndrome Pulmonar (SHP): fiebre, mialgias, cefalea. Evoluciona a distrés respiratorio rápido. Edema pulmonar no cardiogénico.",
+                patogenia: "Los LFt actúan sobre el endotelio pulmonar incrementando la permeabilidad vascular (edema).",
+                diagnostico: "Sangre: trombocitopenia, hemoconcentración, predominio de PMN. Búsqueda de IgM (ELISA)."
+            },
+            {
+                nombre: "Dengue",
+                familia: "Flavivirus",
+                vector: "Aedes aegypti",
+                clinica: "Sde febril inespecífico, dolor retroocular intenso, exantema. Signos de alarma: dolor abdominal, vómitos, sangrado.",
+                patogenia: "El virus infecta monocitos. La respuesta inmune en reinfección por otro serotipo causa shock (fuga plasmática).",
+                diagnostico: "Antígeno NS1 (primeros días). PCR. IgM (tardía)."
+            },
+            {
+                nombre: "Sarampión",
+                familia: "Paramyxoviridae",
+                clinica: "Triple catarro, conjuntivitis. Patognomónico: Manchas de Koplik. Exantema máculo papular descendente.",
+                diagnostico: "Clínico (Koplik). IgM.",
+                complicacion: "Panencefalitis esclerosante subaguda (PEES). Otitis, neumonía."
+            },
+            {
+                nombre: "Virus de la Rabia",
+                familia: "Rhabdoviridae",
+                genoma: "ARN envuelto (forma de bala)",
+                transmision: "Mordedura (saliva infectada).",
+                patogenia: "Neurotrópico: viaja por axones motores al SNC. Cuerpos de Negri.",
+                clinica: "Hidrofobia, espasmos laríngeos, sialorrea, encefalitis mortal.",
+                diagnostico: "IFD en biopsia de nuca/cornea. PCR."
+            },
+            {
+                nombre: "Hepatitis A (HAV)",
+                genoma: "ARN desnudo",
+                transmision: "Fecal-oral.",
+                clinica: "Generalmente aguda y autolimitada. Ictericia, coluria. 95% asintomático en niños.",
+                diagnostico: "IgM anti-HAV. Hepatograma alterado."
+            },
+            {
+                nombre: "Hepatitis B (HBV)",
+                genoma: "ADN envuelto",
+                transmision: "Sexual, parenteral, vertical.",
+                diagnostico: "HBsAg (Ag superficie) > 6 meses = Crónico. Anti-HBs = Inmunidad.",
+                clinica: "Puede cronificar a cirrosis o hepatocarcinoma. Manifestaciones extrahepáticas."
+            },
+            {
+                nombre: "Hepatitis C (HCV)",
+                genoma: "ARN envuelto",
+                transmision: "Parenteral (principal), sexual.",
+                clinica: "80% Cronifica. Gran tendencia a cirrosis y cáncer.",
+                diagnostico: "Anti-HCV y Carga Viral (PCR)."
+            },
+            {
+                nombre: "HIV",
+                familia: "Retroviridae",
+                patogenia: "Destrucción de linfocitos T CD4. GP120 se une a CD4.",
+                clinica: "Agudo: Sde mononucleósico. SIDA: Infecciones oportunistas (Pneumocystis, Toxoplasma, Candida, Kaposi).",
+                diagnostico: "ELISA 4ta gen (Ag p24 + Ac). Confirmación con Carga Viral."
+            },
+            {
+                nombre: "Rotavirus",
+                clinica: "Diarrea acuosa en niños < 2 años. Vómitos, fiebre, deshidratación.",
+                patogenia: "Destrucción de enterocitos, atrofia de vellosidades.",
+                diagnostico: "Detección de Ag en heces (ELISA/Látex)."
+            },
+
+            // --- BACTERIAS ---
             { 
                 nombre: "Staphylococcus aureus", 
-                gram: "Gram Positivo", catalasa: "Positivo", coagulasa: "Positivo",
-                casos: [
-                    "Paciente con forúnculo cutáneo y absceso doloroso. La muestra purulenta muestra cocos en racimos.",
-                    "Usuario de drogas intravenosas con fiebre alta y soplo cardíaco nuevo (Endocarditis tricuspídea). Hemocultivos positivos.",
-                    "Neonato con 'piel escaldada', ampollas generalizadas y signo de Nikolsky positivo."
-                ]
+                gram: "Gram Positivo", 
+                forma: "Cocos en racimos", 
+                catalasa: "Positivo", 
+                coagulasa: "Positivo",
+                clinica: "Piel (forúnculos, celulitis), Neumonía, Osteomielitis, Endocarditis, Shock Tóxico, Sde Piel Escaldada.",
+                patogenia: "Enzimas (coagulasa, hialuronidasa) y Toxinas (TSST-1, Exfoliativas).",
+                diagnostico: "Cultivo (agar sangre/manitol salado)."
             },
             { 
                 nombre: "Staphylococcus epidermidis", 
-                gram: "Gram Positivo", coagulasa: "Negativo",
-                casos: [
-                    "Paciente con infección de catéter venoso central. Hemocultivo positivo para cocos en racimos coagulasa negativo.",
-                    "Paciente con prótesis valvular cardíaca que presenta fiebre baja persistente meses después de la cirugía.",
-                    "Infección de shunt ventriculoperitoneal en niño con hidrocefalia."
-                ]
+                gram: "Gram Positivo", 
+                coagulasa: "Negativo",
+                clinica: "Infección de catéteres, prótesis valvulares, shunts. Infecciones nosocomiales.",
+                patogenia: "Producción de Biofilm (Slime) que adhiere a plásticos.",
+                diagnostico: "Hemocultivos seriados."
             },
             { 
-                nombre: "Staphylococcus saprophyticus", 
-                gram: "Gram Positivo", coagulasa: "Negativo",
-                casos: [
-                    "Mujer joven sexualmente activa con disuria y polaquiuria. Urocultivo: Cocos G+ resistentes a Novobiocina.",
-                    "Síndrome miccional en mujer de 22 años (" + "cistitis de la luna de miel" + "). Sedimento urinario con cocos G+.",
-                    "Infección urinaria baja en mujer sana. El agente es coagulasa negativo y resistente a Novobiocina."
-                ]
+                nombre: "Streptococcus pyogenes (Grupo A)", 
+                gram: "Gram Positivo", 
+                forma: "Cocos en cadenas", 
+                hemolisis: "Beta hemolítico",
+                catalasa: "Negativo",
+                clinica: "Faringitis, Escarlatina, Erisipela, Impétigo. Pos-estrep: Fiebre Reumática, Glomerulonefritis.",
+                diagnostico: "Cultivo, Test rápido Ag, ASTO (para secuelas)."
             },
             { 
-                nombre: "Streptococcus pyogenes", 
-                gram: "Gram Positivo", hemolisis: "Beta hemolítico", prueba: "Sensible a Bacitracina",
-                casos: [
-                    "Niño de 7 años con fiebre, odinofagia intensa y exudado faríngeo purulento. Cocos en cadenas.",
-                    "Paciente con impétigo costroso color miel alrededor de la boca. Cultivo beta-hemolítico sensible a bacitracina.",
-                    "Paciente con erisipela en pierna (placa roja brillante, dolorosa y bien delimitada) y fiebre alta."
-                ]
-            },
-            { 
-                nombre: "Streptococcus pneumoniae", 
-                gram: "Gram Positivo", forma: "Diplococo lanceolado", capsula: "Positivo (Quellung +)",
-                casos: [
-                    "Adulto mayor con neumonía lobar, fiebre brusca y esputo herrumbroso. Gram: Diplococos lanceolados.",
-                    "Niño con otitis media aguda purulenta. El agente es alfa-hemolítico y sensible a optoquina.",
-                    "Paciente con meningitis y rigidez de nuca. LCR turbio con diplococos Gram positivos."
-                ]
+                nombre: "Streptococcus pneumoniae (Neumococo)", 
+                gram: "Gram Positivo", 
+                forma: "Diplococo lanceolado", 
+                capsula: "Sí (Factor de virulencia)",
+                hemolisis: "Alfa hemolítico",
+                clinica: "Neumonía típica (lobar), Meningitis, Otitis media, Sinusitis.",
+                diagnostico: "Gram y Cultivo de esputo/LCR/sangre. Ag urinario."
             },
             { 
                 nombre: "Neisseria meningitidis", 
-                gram: "Gram Negativo", forma: "Diplococo (grano café)", metabolismo: "Fermenta Maltosa y Glucosa",
-                casos: [
-                    "Adolescente con petequias en tronco, fiebre muy alta y rigidez de nuca. LCR con diplococos Gram negativos.",
-                    "Brote de meningitis en un cuartel militar. El agente fermenta glucosa y maltosa.",
-                    "Sepsis fulminante con hemorragia suprarrenal (Síndrome de Waterhouse-Friderichsen)."
-                ]
+                gram: "Gram Negativo", 
+                forma: "Diplococo (grano de café)", 
+                oxidasa: "Positivo",
+                clinica: "Meningitis purulenta (rigidez nuca, fiebre). Meningococemia (petequias, shock).",
+                diagnostico: "LCR (Gram, Cultivo, PCR).",
+                complicacion: "Sde Waterhouse-Friderichsen."
             },
-            { 
-                nombre: "Neisseria gonorrhoeae", 
-                gram: "Gram Negativo", forma: "Diplococo intracelular",
-                casos: [
-                    "Varón con secreción uretral purulenta abundante y disuria. Gram: diplococos G- dentro de polimorfonucleares.",
-                    "Mujer con enfermedad pélvica inflamatoria (EPI) y dolor a la movilización del cuello uterino.",
-                    "Recién nacido con conjuntivitis purulenta severa (oftalmia neonatorum) al 2do día de vida."
-                ]
+            {
+                nombre: "Neisseria gonorrhoeae",
+                gram: "Gram Negativo",
+                forma: "Diplococo intracelular",
+                transmision: "Sexual (ITS)",
+                clinica: "Uretritis purulenta (hombre), Cervicitis (mujer), Oftalmia neonatal, Artritis séptica.",
+                diagnostico: "Gram de secreción uretral. Cultivo Thayer-Martin."
             },
-            { 
-                nombre: "Escherichia coli", 
-                gram: "Gram Negativo", fermentacion: "Lactosa Positivo", prueba: "Indol Positivo",
-                casos: [
-                    "Mujer con cistitis no complicada. Urocultivo: Bacilo G- fermentador de lactosa e Indol positivo.",
-                    "Recién nacido con meningitis y sepsis. El agente posee antígeno K1.",
-                    "Paciente con diarrea del viajero tras volver del caribe. Diarrea acuosa sin sangre."
-                ]
+            {
+                nombre: "Escherichia coli",
+                gram: "Gram Negativo",
+                forma: "Bacilo",
+                fermentacion: "Lactosa Positivo",
+                clinica: "ITU (Cistitis/Pielonefritis). EHEC: Diarrea sanguinolenta y SUH (Sde Urémico Hemolítico).",
+                patogenia: "Fimbrias (ITU). Toxina Shiga (SUH).",
+                diagnostico: "Urocultivo. Coprocultivo."
             },
-            { 
-                nombre: "Pseudomonas aeruginosa", 
-                gram: "Gram Negativo", oxidasa: "Positivo", olor: "Frutas/Uvas",
-                casos: [
-                    "Paciente gran quemado con infección de herida que presenta pus verdoso y olor dulzón.",
-                    "Otitis externa maligna en paciente diabético anciano. Dolor severo y otorrea.",
-                    "Neumonía asociada a ventilador en paciente con fibrosis quística. Esputo mucoide."
-                ]
+            {
+                nombre: "Salmonella spp.",
+                gram: "Gram Negativo",
+                fermentacion: "Lactosa Negativo",
+                clinica: "Gastroenteritis (diarrea, fiebre, dolor). Fiebre Tifoidea (S. typhi: fiebre alta, bradicardia, hepatoespleno).",
+                transmision: "Aves, huevos, alimentos contaminados.",
+                diagnostico: "Coprocultivo. Hemocultivo (Tifoidea)."
             },
-            { 
-                nombre: "Treponema pallidum", 
-                tincion: "Campo Oscuro", lesion: "Chancro duro",
-                casos: [
-                    "Paciente con úlcera genital indolora (chancro duro) de base limpia. VDRL positivo.",
-                    "Paciente con exantema maculopapular en palmas y plantas (Sífilis secundaria).",
-                    "Recién nacido con 'dientes de Hutchinson', nariz en silla de montar y tibia en sable."
-                ]
+            {
+                nombre: "Shigella",
+                gram: "Gram Negativo",
+                motilidad: "Inmóvil",
+                clinica: "Disentería (diarrea con sangre, moco y pus), pujo y tenesmo.",
+                patogenia: "Invasión mucosa colónica. Toxina Shiga.",
+                diagnostico: "Coprocultivo."
             },
-            { 
-                nombre: "Mycobacterium tuberculosis", 
-                tincion: "Ziehl-Neelsen (BAAR)", cultivo: "Lowenstein-Jensen",
-                casos: [
-                    "Paciente con tos crónica (>3 sem), hemoptisis, pérdida de peso y fiebre vespertina.",
-                    "Radiografía de tórax con cavitación apical en paciente presidiario con tos productiva.",
-                    "Meningitis basal de evolución lenta en paciente inmunodeprimido. LCR con hipoglucorraquia severa."
-                ]
+            {
+                nombre: "Pseudomonas aeruginosa",
+                gram: "Gram Negativo",
+                metabolismo: "No fermentador / Aerobio estricto",
+                oxidasa: "Positivo",
+                clinica: "Infecciones en quemados, Fibrosis Quística, Otitis externa maligna, Neumonía ARM.",
+                caracteristicas: "Pigmentos verde/azul. Olor a frutas.",
+                diagnostico: "Cultivo."
             },
-            { 
-                nombre: "Clostridium tetani", 
-                gram: "Gram Positivo", forma: "Bacilo en palillo de tambor",
-                casos: [
-                    "Jardinero con herida punzante sucia. Días después presenta trismo (mandíbula trabada).",
-                    "Paciente con risa sardónica y opistótonos (arqueamiento de espalda) tras herida con clavo oxidado.",
-                    "Espasmos musculares generalizados ante estímulos mínimos en paciente no vacunado."
-                ]
+            {
+                nombre: "Brucella spp.",
+                gram: "Gram Negativo",
+                forma: "Cocobacilo",
+                clinica: "Fiebre ondulante, sudoración nocturna, sacroileítis, orquitis.",
+                transmision: "Lácteos no pasteurizados, contacto animal.",
+                diagnostico: "Hemocultivo (lento). Huddleson/Wright."
             },
-            { 
-                nombre: "Vibrio cholerae", 
-                gram: "Gram Negativo", forma: "Bacilo curvo (coma)",
-                casos: [
-                    "Paciente con diarrea acuosa profusa ('agua de arroz') y deshidratación severa rápida.",
-                    "Brote epidémico de diarrea tras consumo de mariscos crudos o agua contaminada.",
-                    "Heces líquidas sin leucocitos ni sangre, pero con gran pérdida de electrolitos."
-                ]
+            {
+                nombre: "Bordetella pertussis",
+                gram: "Gram Negativo",
+                clinica: "Tos convulsa (coqueluche): accesos, gallo inspiratorio, vómitos post-tusivos.",
+                diagnostico: "PCR nasofaríngea. Cultivo (Bordet-Gengou).",
+                patogenia: "Toxina pertussis, citotoxina traqueal."
             },
-            { 
-                nombre: "Haemophilus influenzae", 
-                gram: "Gram Negativo", cultivo: "Agar Chocolate (X y V)",
-                casos: [
-                    "Niño no vacunado (3 años) que llega babeando, con estridor y posición de trípode (Epiglotitis).",
-                    "Otitis media o sinusitis en niño pequeño. Cultivo requiere factores X (Hemina) y V (NAD).",
-                    "Meningitis en lactante no vacunado. Cocobacilo Gram negativo pleomórfico."
-                ]
+            {
+                nombre: "Haemophilus influenzae b",
+                gram: "Gram Negativo",
+                forma: "Cocobacilo",
+                cultivo: "Agar Chocolate (Factores X y V)",
+                clinica: "Meningitis (niños no vacunados), Epiglotitis, Neumonía.",
+                diagnostico: "Cultivo. Ag capsular."
             },
-            { 
-                nombre: "Brucella spp.", 
-                gram: "Gram Negativo", cultivo: "Hemocultivo (lento)",
-                casos: [
-                    "Veterinario o trabajador de frigorífico con 'fiebre ondulante', sudoración nocturna y dolor articular.",
-                    "Paciente que consumió queso de cabra no pasteurizado y presenta fiebre y hepatoesplenomegalia.",
-                    "Cuadro febril de larga data con sacroileítis (dolor lumbar bajo) en trabajador rural."
-                ]
+            {
+                nombre: "Treponema pallidum (Sífilis)",
+                tipo: "Espiroqueta",
+                visualizacion: "Campo oscuro (no se tiñe Gram)",
+                clinica: "1°: Chancro duro. 2°: Roséola. 3°: Gomas, neurosífilis. Congénita.",
+                diagnostico: "VDRL (screening), FTA-abs (confirmatoria)."
             },
-            { 
-                nombre: "Klebsiella pneumoniae", 
-                gram: "Gram Negativo", fermentacion: "Lactosa Positivo", motilidad: "Inmóvil",
-                casos: [
-                    "Paciente alcohólico con neumonía severa. Esputo característico en 'jalea de grosella'.",
-                    "Neumonía lobar con abombamiento de la cisura en la radiografía. Bacilo encapsulado.",
-                    "Infección urinaria en paciente hospitalizado con sonda. Colonia mucosa en agar."
-                ]
+            {
+                nombre: "Vibrio cholerae",
+                gram: "Gram Negativo",
+                forma: "Bacilo curvo (coma)",
+                clinica: "Diarrea acuosa 'agua de arroz', deshidratación grave rápida.",
+                patogenia: "Toxina colérica (aumenta AMPc).",
+                transmision: "Agua/mariscos contaminados."
             },
-            { 
-                nombre: "Proteus mirabilis", 
-                gram: "Gram Negativo", prueba: "Ureasa Positivo", caracteristica: "Swarming",
-                casos: [
-                    "Paciente con litiasis renal coraliforme (cálculos de estruvita) e infección urinaria recurrente.",
-                    "Orina con pH muy alcalino y olor amoniacal fuerte.",
-                    "Cultivo en placa muestra crecimiento en ondas concéntricas que cubre todo el agar (Swarming)."
-                ]
+            {
+                nombre: "Clostridium tetani",
+                gram: "Gram Positivo",
+                espora: "Esporulado (Palillo de tambor)",
+                respiracion: "Anaerobio estricto",
+                clinica: "Trismo, risa sardónica, opistótonos (parálisis rígida).",
+                patogenia: "Tetanospasmina bloquea GABA."
+            },
+            {
+                nombre: "Clostridium botulinum",
+                gram: "Gram Positivo",
+                respiracion: "Anaerobio estricto",
+                clinica: "Parálisis flácida descendente, diplopía, disfagia. Botulismo del lactante (miel).",
+                patogenia: "Toxina botulínica bloquea Acetilcolina."
+            },
+            {
+                nombre: "Mycobacterium tuberculosis",
+                tincion: "BAAR (Ziehl-Neelsen)",
+                cultivo: "Lowenstein-Jensen",
+                clinica: "Tos crónica, hemoptisis, pérdida de peso, sudoración nocturna. Cavernas apicales.",
+                diagnostico: "Baciloscopía, Cultivo, PCR."
+            },
+            {
+                nombre: "Leptospira interrogans",
+                tipo: "Espiroqueta (con ganchos)",
+                transmision: "Orina roedores/agua (inundaciones).",
+                clinica: "Fiebre, mialgias (pantorrillas). Grave: Sde Weil (Ictericia + Falla Renal).",
+                diagnostico: "Microaglutinación (MAT)."
+            },
+            {
+                nombre: "Chlamydia trachomatis",
+                tipo: "Intracelular obligado",
+                clinica: "Uretritis, Cervicitis, EPI, Linfogranuloma venéreo, Tracoma, Neumonía neonatal.",
+                diagnostico: "PCR, IFD. No cultiva en medios artificiales."
+            },
+
+            // --- HONGOS ---
+            {
+                nombre: "Histoplasma capsulatum",
+                tipo: "Hongo dimórfico",
+                habitat: "Guano de aves/murciélagos.",
+                zona_endemica: "Pampa Húmeda.",
+                clinica: "Pulmonar aguda. Diseminada en SIDA (pancitopenia, úlceras).",
+                diagnostico: "Cultivo, Escarificación, Serología."
+            },
+            {
+                nombre: "Paracoccidioides brasiliensis",
+                tipo: "Hongo dimórfico",
+                diagnostico: "Levadura multigemante ('Rueda de timón').",
+                zona_endemica: "Noreste (Litoral/Subtropical).",
+                clinica: "Estomatitis moriforme, adenopatías, neumopatía crónica."
+            },
+            {
+                nombre: "Coccidioides posadasii",
+                tipo: "Hongo dimórfico",
+                diagnostico: "Esférula con endosporas.",
+                zona_endemica: "Precordillera (Zona seca/Zonda).",
+                clinica: "Neumonía, eritema nodoso, meningitis."
+            },
+            {
+                nombre: "Candida albicans",
+                tipo: "Levadura (Oportunista)",
+                clinica: "Muguet, Vaginitis, Intertrigo, Fungemia (catéteres).",
+                diagnostico: "Pseudohifas al directo. Cultivo."
+            },
+            {
+                nombre: "Cryptococcus neoformans",
+                tipo: "Levadura capsulada",
+                habitat: "Guano de paloma.",
+                clinica: "Meningitis en SIDA (cefalea, fiebre).",
+                diagnostico: "Tinta China (LCR), Antígeno capsular."
+            },
+            {
+                nombre: "Dermatofitos",
+                tipo: "Hongos filamentosos",
+                nutricion: "Queratinofílicos.",
+                clinica: "Tiñas (capitis, corporis, pedis, unguium). Lesiones anulares.",
+                diagnostico: "Examen directo con KOH, Cultivo."
+            },
+
+            // --- PARASITOS ---
+            {
+                nombre: "Trypanosoma cruzi",
+                enfermedad: "Chagas",
+                vector: "Vinchuca",
+                clinica: "Agudo: Romaña. Crónico: Miocardiopatía, Megacolon.",
+                diagnostico: "Agudo: Parasitemia (Strout). Crónico: Serología."
+            },
+            {
+                nombre: "Toxoplasma gondii",
+                huesped_definitivo: "Gato",
+                transmision: "Carnes crudas, heces gato, transplacentaria.",
+                clinica: "Congénita: Tetrada de Sabin (Hidrocefalia, calcificaciones, coriorretinitis). SIDA: Abscesos cerebrales.",
+                diagnostico: "Serología (IgM/IgG). Avidez."
+            },
+            {
+                nombre: "Giardia lamblia",
+                tipo: "Protozoo flagelado",
+                clinica: "Diarrea esteatorreica (grasa), malabsorción.",
+                diagnostico: "Quistes en heces. Trofozoito 'cara de viejo'."
+            },
+            {
+                nombre: "Trichinella spiralis",
+                transmision: "Cerdo crudo (chacinados).",
+                clinica: "Edema bipalpebral, mialgias, fiebre, eosinofilia.",
+                diagnostico: "Serología, Enzimas musculares."
+            },
+            {
+                nombre: "Enterobius vermicularis",
+                tipo: "Nematode (Oxiuro)",
+                clinica: "Prurito anal nocturno, bruxismo.",
+                diagnostico: "Test de Graham (cinta adhesiva)."
+            },
+            {
+                nombre: "Taenia saginata",
+                transmision: "Carne vacuna cruda (Cisticerco).",
+                clinica: "Eliminación de proglótides. Teniasis.",
+                diagnostico: "Visualización de proglótides/huevos."
             }
         ];
 
@@ -445,7 +614,7 @@
         let score = 0;
         let questionsQueue = [];
         let mistakes = []; 
-        let maxQuestions = 10;
+        let maxQuestions = 20;
 
         /* --- ELEMENTOS DOM --- */
         const ui = {
@@ -453,13 +622,13 @@
             gameContainer: document.getElementById('game-container'),
             endScreen: document.getElementById('end-screen'),
             selectCount: document.getElementById('q-count-select'),
-            badge: document.getElementById('question-badge'),
-            primary: document.getElementById('primary-display'),
-            secondary: document.getElementById('secondary-display'),
+            badge: document.getElementById('column-badge'),
+            microbeName: document.getElementById('microbe-display'),
+            qText: document.getElementById('question-text'),
             options: document.getElementById('options-container'),
             feedbackArea: document.getElementById('feedback-area'),
-            feedbackTitle: document.getElementById('feedback-title'),
-            feedbackDetail: document.getElementById('feedback-detail'),
+            feedbackStatus: document.getElementById('feedback-status'),
+            feedbackText: document.getElementById('feedback-text'),
             nextBtn: document.getElementById('next-btn'),
             aiBtn: document.getElementById('ai-btn'),
             counter: document.getElementById('question-counter'),
@@ -471,12 +640,6 @@
         };
 
         /* --- FLUJO DEL JUEGO --- */
-
-        function showStartScreen() {
-            ui.gameContainer.classList.add('hide');
-            ui.endScreen.classList.add('hide');
-            ui.startScreen.classList.remove('hide');
-        }
 
         function initGame() {
             const val = ui.selectCount.value;
@@ -497,33 +660,18 @@
 
         function generateQuestionQueue() {
             questionsQueue = [];
-            let limit = (maxQuestions === 999) ? 50 : maxQuestions;
+            let limit = (maxQuestions === 999) ? microbios.length : maxQuestions;
+            if (limit > microbios.length) limit = microbios.length;
+
+            const shuffledMicrobios = [...microbios].sort(() => Math.random() - 0.5);
 
             for (let i = 0; i < limit; i++) {
-                const randomMicrobe = microbios[Math.floor(Math.random() * microbios.length)];
+                const randomMicrobe = shuffledMicrobios[i];
+                const validKeys = Object.keys(randomMicrobe).filter(k => k !== 'nombre');
                 
-                // Verificar si tiene casos clínicos definidos
-                const hasCases = randomMicrobe.casos && randomMicrobe.casos.length > 0;
-                
-                // 50% probabilidad de Caso Clínico (si existe) vs Teórica
-                const isClinical = Math.random() > 0.5 && hasCases;
-                
-                if (isClinical) {
-                    // Seleccionar UNO de los 3 casos al azar
-                    const randomCaseText = randomMicrobe.casos[Math.floor(Math.random() * randomMicrobe.casos.length)];
-                    
+                if (validKeys.length > 0) {
+                    const randomKey = validKeys[Math.floor(Math.random() * validKeys.length)];
                     questionsQueue.push({
-                        type: 'clinical',
-                        microbe: randomMicrobe,
-                        text: randomCaseText,
-                        correctAnswer: randomMicrobe.nombre
-                    });
-                } else {
-                    // Pregunta teórica
-                    const keys = Object.keys(randomMicrobe).filter(k => k !== 'nombre' && k !== 'casos');
-                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                    questionsQueue.push({
-                        type: 'theory',
                         microbe: randomMicrobe,
                         key: randomKey,
                         correctAnswer: randomMicrobe[randomKey]
@@ -540,37 +688,32 @@
             }
 
             const q = questionsQueue[currentQIndex];
+            
+            // UI Reset
             ui.counter.innerText = `${currentQIndex + 1}/${maxQuestions}`;
             ui.feedbackArea.classList.remove('feedback-visible');
             ui.feedbackArea.style.display = 'none';
             ui.nextBtn.style.display = "none";
-            ui.aiBtn.style.display = "none";
+            ui.aiBtn.style.display = "none"; 
             ui.options.innerHTML = "";
 
-            if (q.type === 'clinical') {
-                ui.badge.className = "badge-type type-clinical";
-                ui.badge.innerText = "Caso Clínico";
-                ui.primary.innerText = "Diagnóstico Presuntivo";
-                ui.primary.style.fontSize = "1.1rem";
-                ui.secondary.innerText = q.text;
-                renderOptions(getMicrobeNamesDistractors(q.correctAnswer), q.correctAnswer);
-            } else {
-                ui.badge.className = "badge-type type-theory";
-                ui.badge.innerText = "Teoría";
-                ui.primary.innerText = q.microbe.nombre;
-                ui.primary.style.fontSize = "1.3rem";
-                ui.secondary.innerText = formatQuestionText(q.key);
-                renderOptions(getPropertyDistractors(q.key, q.correctAnswer), q.correctAnswer);
-            }
-        }
+            // Configuración visual según tipo de dato
+            const isFact = ['gram','catalasa','coagulasa','oxidasa','tipo','forma'].includes(q.key);
+            ui.badge.className = isFact ? 'badge-column type-fact' : 'badge-column type-desc';
+            ui.badge.innerText = formatKeyName(q.key);
+            
+            ui.microbeName.innerText = q.microbe.nombre;
+            ui.qText.innerText = getQuestionText(q.key);
 
-        function renderOptions(optionsList, correct) {
-            const shuffled = [...optionsList, correct].sort(() => Math.random() - 0.5);
-            shuffled.forEach(opt => {
+            // Generar Opciones
+            const distractors = getDistractors(q.key, q.correctAnswer);
+            const allOptions = [...distractors, q.correctAnswer].sort(() => Math.random() - 0.5);
+
+            allOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.innerText = opt;
                 btn.className = 'option-btn';
-                btn.onclick = () => checkAnswer(btn, opt, correct);
+                btn.onclick = () => checkAnswer(btn, opt, q.correctAnswer);
                 ui.options.appendChild(btn);
             });
         }
@@ -585,36 +728,91 @@
 
             if (selected === correct) {
                 btn.classList.add('correct');
-                ui.feedbackTitle.innerText = "¡Correcto!";
-                ui.feedbackTitle.style.color = "var(--correct-color)";
-                ui.feedbackDetail.innerText = "";
+                ui.feedbackStatus.innerText = "¡Correcto!";
+                ui.feedbackStatus.style.color = "var(--correct-color)";
                 score++;
                 ui.score.innerText = `Pts: ${score}`;
             } else {
                 btn.classList.add('wrong');
-                ui.feedbackTitle.innerText = "Incorrecto";
-                ui.feedbackTitle.style.color = "var(--wrong-color)";
-                ui.feedbackDetail.innerText = `Respuesta: ${correct}`;
+                ui.feedbackStatus.innerText = "Incorrecto";
+                ui.feedbackStatus.style.color = "var(--wrong-color)";
                 
                 btns.forEach(b => {
                     if (b.innerText === correct) b.classList.add('correct');
                 });
                 
-                mistakes.push(`${q.microbe.nombre} (${q.type === 'clinical' ? 'Caso' : q.key})`);
+                mistakes.push(`${q.microbe.nombre} (${formatKeyName(q.key)})`);
             }
+
+            ui.feedbackText.innerHTML = `<strong>Dato Correcto (${formatKeyName(q.key)}):</strong><br>${correct}`;
             ui.nextBtn.style.display = "block";
             ui.aiBtn.style.display = "block";
         }
 
-        /* --- LÓGICA DE IA --- */
+        function showStartScreen() {
+            ui.gameContainer.classList.add('hide');
+            ui.endScreen.classList.add('hide');
+            ui.startScreen.classList.remove('hide');
+        }
+
+        /* --- LOGICA DE GENERACIÓN DE CONTENIDO --- */
+
+        function formatKeyName(key) {
+            return key.replace(/_/g, ' ').toUpperCase();
+        }
+
+        function getQuestionText(key) {
+            const map = {
+                gram: "¿Cuál es su tinción de Gram?",
+                catalasa: "¿Prueba de Catalasa?",
+                coagulasa: "¿Prueba de Coagulasa?",
+                oxidasa: "¿Prueba de Oxidasa?",
+                forma: "¿Morfología microscópica?",
+                clinica: "¿Qué cuadro clínico describe?",
+                diagnostico: "¿Cómo se realiza el diagnóstico?",
+                transmision: "¿Vía de transmisión?",
+                habitat: "¿Cuál es su hábitat o reservorio?",
+                vector: "¿Cuál es el vector transmisor?",
+                patogenia: "¿Mecanismo patogénico?",
+                zona_endemica: "¿Zona endémica?",
+                tipo: "¿Qué tipo de microorganismo es?",
+                genoma: "¿Tipo de genoma viral?",
+                fermentacion: "¿Características metabólicas?"
+            };
+            return map[key] || `¿Característica: ${formatKeyName(key)}?`;
+        }
+
+        function getDistractors(key, correctVal) {
+            let pool = [];
+            
+            // Pools Fijos para datos "Duros"
+            if(key === 'gram') pool = ["Gram Positivo", "Gram Negativo", "Gram Variable", "No se tiñe (BAAR/Espiroqueta)"];
+            else if(['catalasa','coagulasa','oxidasa','capsula','motilidad'].includes(key)) pool = ["Positivo", "Negativo", "Variable"];
+            else if(key === 'hemolisis') pool = ["Alfa hemolítico", "Beta hemolítico", "Gamma hemolítico"];
+            else if(key === 'genoma') pool = ["ADN desnudo", "ADN envuelto", "ARN desnudo", "ARN envuelto"];
+            else if(key === 'tipo') pool = ["Bacteria", "Virus", "Hongo", "Parásito", "Espiroqueta"];
+            else {
+                // Pools Dinámicos para datos "Narrativos" (PDFs)
+                pool = microbios
+                    .map(m => m[key])
+                    .filter(v => v && v !== correctVal);
+                
+                // Si faltan distractores, rellenar con genéricos
+                if(pool.length < 3) {
+                    pool.push("Inespecífico", "Variable según huésped", "No aplica", "Desconocido");
+                }
+            }
+
+            // Eliminar duplicados y la correcta
+            const uniquePool = [...new Set(pool)].filter(v => v !== correctVal);
+            
+            // Mezclar y devolver 3
+            return uniquePool.sort(() => 0.5 - Math.random()).slice(0, 3);
+        }
+
         function askAI() {
             const q = questionsQueue[currentQIndex];
-            let promptText = "";
-            if (q.type === 'clinical') {
-                promptText = `Soy estudiante de medicina. Tengo este caso clínico de microbiología: "${q.text}". La respuesta correcta es "${q.correctAnswer}". Por favor explícame la fisiopatología, por qué es ese microorganismo y descarta las otras posibilidades comunes. Sé breve y didáctico.`;
-            } else {
-                promptText = `Soy estudiante de medicina. Estoy estudiando microbiología sobre "${q.microbe.nombre}". La pregunta es sobre "${q.key}" y la respuesta correcta es "${q.correctAnswer}". Explícame por qué tiene esa característica y su importancia clínica.`;
-            }
+            const promptText = `Soy estudiante de medicina. Sobre el microorganismo "${q.microbe.nombre}". La pregunta es sobre "${q.key}" y la respuesta es "${q.correctAnswer}". Explícame brevemente este concepto y cómo diferenciarlo.`;
             const encodedPrompt = encodeURIComponent(promptText);
             const url = `https://chatgpt.com/?q=${encodedPrompt}`;
             window.open(url, '_blank');
@@ -625,33 +823,6 @@
             loadQuestion();
         }
 
-        /* --- GENERADORES DE OPCIONES --- */
-
-        function formatQuestionText(key) {
-            const map = { gram: "¿Reacción al Gram?", catalasa: "¿Catalasa?", coagulasa: "¿Coagulasa?", oxidasa: "¿Oxidasa?", hemolisis: "¿Hemólisis?", fermentacion: "¿Fermentación?", cultivo: "¿Medio de cultivo?", tincion: "¿Tinción?", motilidad: "¿Movilidad?", espora: "¿Espora?", capsula: "¿Cápsula?", prueba: "¿Prueba Bioquímica?", metabolismo: "¿Metabolismo?" };
-            return map[key] || `¿${key.charAt(0).toUpperCase() + key.slice(1)}?`;
-        }
-
-        function getMicrobeNamesDistractors(correct) {
-            const allNames = microbios.map(m => m.nombre);
-            const uniqueOptions = [...new Set(allNames)].filter(n => n !== correct);
-            return uniqueOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
-        }
-
-        function getPropertyDistractors(key, correct) {
-            let pool = [];
-            if(key === 'gram') pool = ["Gram Positivo", "Gram Negativo", "Gram Variable", "No visualizable"];
-            else if(['catalasa','coagulasa','oxidasa','motilidad','capsula'].includes(key)) pool = ["Positivo", "Negativo", "Variable"];
-            else if(key === 'hemolisis') pool = ["Alfa hemolítico", "Beta hemolítico", "Gamma hemolítico"];
-            else {
-                pool = microbios.map(m => m[key]).filter(v => v);
-                pool.push("No aplica", "Variable", "Indeterminado");
-            }
-            // Eliminar duplicados y filtrar correcta
-            const uniqueOptions = [...new Set(pool)].filter(opt => opt !== correct);
-            return uniqueOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
-        }
-
         function endGame() {
             ui.gameContainer.classList.add('hide');
             ui.endScreen.classList.remove('hide');
@@ -659,8 +830,7 @@
             const percentage = Math.round((score / maxQuestions) * 100);
             ui.finalScore.innerText = `${percentage}%`;
             
-            if(percentage >= 60) ui.finalMsg.innerText = "¡Aprobado!"; 
-            else ui.finalMsg.innerText = "Sigue practicando.";
+            ui.finalMsg.innerText = percentage >= 60 ? "¡Aprobado!" : "A seguir estudiando.";
 
             if (mistakes.length > 0) {
                 ui.mistakesContainer.classList.remove('hide');
