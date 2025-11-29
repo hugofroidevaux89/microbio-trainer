@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroBio UNR - Trainer AI</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --clinical-color: #e67e22;
+            --bg-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --correct-color: #27ae60;
+            --wrong-color: #c0392b;
+            --ai-color: #8e44ad; /* Color violeta para IA */
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- Header --- */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-size: 1.5rem; color: var(--primary-color); margin: 0; }
+        
+        .score-badge { 
+            background: var(--primary-color); 
+            color: white; 
+            padding: 5px 12px; 
+            border-radius: 15px; 
+            font-size: 0.9rem; 
+            font-weight: bold;
+        }
+
+        /* --- Configuración --- */
+        .config-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        select {
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            background-color: white;
+            color: var(--text-color);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* --- Quiz UI --- */
+        .badge-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .type-theory { background: var(--accent-color); color: white; }
+        .type-clinical { background: var(--clinical-color); color: white; }
+
+        .question-content { margin: 20px 0; }
+
+        .main-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .sub-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #555;
+            min-height: 1.5em;
+        }
+
+        /* --- Botones de Opción --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        @media (min-width: 500px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+
+        button.option-btn {
+            padding: 15px;
+            font-size: 1rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            color: #34495e;
+            transition: all 0.2s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        button.option-btn:hover:not([disabled]) {
+            background-color: #e8f6fd;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        button.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; }
+        button.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; opacity: 0.8; }
+
+        /* --- Botones de Acción (Inicio, Siguiente, IA) --- */
+        .action-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .action-btn:hover { background-color: #2980b9; }
+
+        /* Botón de IA específico */
+        .ai-btn {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            margin-top: 10px;
+            display: none; /* Oculto por defecto */
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .ai-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
+        }
+
+        /* --- Feedback y Errores --- */
+        .feedback-area {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            display: none;
+        }
+        
+        .feedback-visible { display: block; animation: fadeIn 0.3s; }
+
+        .mistakes-container {
+            margin-top: 20px;
+            text-align: left;
+            background-color: #fff5f5;
+            border: 1px solid #ffcccc;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .mistakes-list {
+            padding-left: 25px;
+            margin: 10px 0 0 0;
+            color: #c0392b;
+        }
+        
+        .mistakes-list li { margin-bottom: 8px; }
+
+        .hide { display: none; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA DE INICIO -->
+    <div class="container" id="start-screen">
+        <h1>MicroBio UNR</h1>
+        <p style="color: #666; margin-bottom: 30px;">Repaso de Bacteriología Médica</p>
+        
+        <div class="config-box">
+            <label for="q-count-select" style="font-weight: bold; text-align: left;">Cantidad de preguntas:</label>
+            <select id="q-count-select">
+                <option value="5">5 Preguntas (Rápido)</option>
+                <option value="10" selected>10 Preguntas (Estándar)</option>
+                <option value="15">15 Preguntas</option>
+                <option value="20">20 Preguntas</option>
+                <option value="999">Todas las posibles</option>
+            </select>
+        </div>
+
+        <button class="action-btn" onclick="initGame()">COMENZAR EXAMEN</button>
+    </div>
+
+    <!-- PANTALLA DE JUEGO -->
+    <div class="container hide" id="game-container">
+        <div class="header-bar">
+            <h1>MicroBio UNR</h1>
+            <div class="score-badge">
+                <span id="question-counter">1/10</span> | <span id="score-display">Pts: 0</span>
+            </div>
+        </div>
+
+        <!-- Área de la pregunta -->
+        <div id="quiz-area">
+            <span id="question-badge" class="badge-type type-theory">Teoría</span>
+            
+            <div class="question-content">
+                <div id="primary-display" class="main-text">S. aureus</div>
+                <div id="secondary-display" class="sub-text">¿Es catalasa positivo?</div>
+            </div>
+            
+            <div class="options-grid" id="options-container">
+                <!-- Botones JS -->
+            </div>
+        </div>
+
+        <div id="feedback-area" class="feedback-area">
+            <strong id="feedback-title"></strong>
+            <p id="feedback-detail" style="margin: 5px 0 0 0; font-size: 0.95rem;"></p>
+            
+            <!-- BOTÓN DE INTELIGENCIA ARTIFICIAL -->
+            <button id="ai-btn" class="ai-btn" onclick="askAI()">✨ Explicar con IA</button>
+        </div>
+        
+        <button id="next-btn" class="action-btn" style="display: none;" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+
+    <!-- PANTALLA FINAL -->
+    <div class="container hide" id="end-screen">
+        <h1 style="margin-bottom: 10px;">Resultados</h1>
+        <div style="font-size: 3rem; font-weight: bold; color: var(--accent-color);" id="final-score">0%</div>
+        <p id="final-message" style="font-size: 1.1rem; font-weight: bold;"></p>
+
+        <div id="mistakes-container" class="mistakes-container hide">
+            <h3 style="margin: 0; color: #c0392b; font-size: 1rem;">Temas a repasar:</h3>
+            <ul id="mistakes-list" class="mistakes-list"></ul>
+        </div>
+
+        <button class="action-btn" onclick="showStartScreen()">Volver al Inicio</button>
+    </div>
+
+    <script>
+        /* --- BASE DE DATOS --- */
+        const microbios = [
+            { nombre: "Staphylococcus aureus", gram: "Gram Positivo", catalasa: "Positivo", coagulasa: "Positivo", caso: "Paciente con forúnculo cutáneo y absceso. Muestra purulenta muestra cocos en racimos." },
+            { nombre: "Staphylococcus epidermidis", gram: "Gram Positivo", coagulasa: "Negativo", caso: "Infección de catéter. Hemocultivo positivo para cocos en racimos, coagulasa negativo." },
+            { nombre: "Staphylococcus saprophyticus", gram: "Gram Positivo", caso: "Mujer joven con disuria. Urocultivo: Cocos G+ resistentes a Novobiocina." },
+            { nombre: "Streptococcus pyogenes", gram: "Gram Positivo", hemolisis: "Beta hemolítico", prueba: "Sensible a Bacitracina", caso: "Faringitis purulenta. Exudado con cocos en cadenas beta-hemolíticos." },
+            { nombre: "Streptococcus pneumoniae", gram: "Gram Positivo", forma: "Diplococo lanceolado", capsula: "Positivo (Quellung +)", caso: "Neumonía y rigidez de nuca. LCR con diplococos Gram positivos lanceolados." },
+            { nombre: "Neisseria meningitidis", gram: "Gram Negativo", forma: "Diplococo (grano café)", metabolismo: "Fermenta Maltosa y Glucosa", caso: "Petequias, fiebre brusca y cefalea intensa." },
+            { nombre: "Neisseria gonorrhoeae", gram: "Gram Negativo", forma: "Diplococo intracelular", caso: "Secreción uretral purulenta. Gram: diplococos G- dentro de neutrófilos." },
+            { nombre: "Escherichia coli", gram: "Gram Negativo", fermentacion: "Lactosa Positivo", prueba: "Indol Positivo", caso: "Infección urinaria. Bacilo G- fermentador de lactosa (rosa en MacConkey)." },
+            { nombre: "Pseudomonas aeruginosa", gram: "Gram Negativo", oxidasa: "Positivo", olor: "Frutas/Uvas", caso: "Paciente quemado, herida con pus verdoso y olor dulzón." },
+            { nombre: "Treponema pallidum", tincion: "Campo Oscuro", lesion: "Chancro duro", caso: "Úlcera genital indolora. Espiroqueta visible solo en campo oscuro." },
+            { nombre: "Mycobacterium tuberculosis", tincion: "Ziehl-Neelsen (BAAR)", cultivo: "Lowenstein-Jensen", caso: "Tos crónica, pérdida de peso, sudoración. Rx con cavitación apical." },
+            { nombre: "Clostridium tetani", gram: "Gram Positivo", forma: "Bacilo en palillo de tambor", caso: "Herida punzante, trismo y risa sardónica." },
+            { nombre: "Vibrio cholerae", gram: "Gram Negativo", forma: "Bacilo curvo (coma)", caso: "Diarrea 'agua de arroz' tras comer mariscos." },
+            { nombre: "Haemophilus influenzae", gram: "Gram Negativo", cultivo: "Agar Chocolate (X y V)", caso: "Epiglotitis en niño no vacunado." },
+            { nombre: "Brucella spp.", gram: "Gram Negativo", cultivo: "Hemocultivo (lento)", caso: "Fiebre ondulante, trabajador rural en contacto con ganado." },
+            { nombre: "Klebsiella pneumoniae", gram: "Gram Negativo", fermentacion: "Lactosa Positivo", motilidad: "Inmóvil", caso: "Neumonía en alcohólico, esputo jalea de grosella." },
+            { nombre: "Proteus mirabilis", gram: "Gram Negativo", prueba: "Ureasa Positivo", caracteristica: "Swarming", caso: "Infección urinaria asociada a cálculos de estruvita." }
+        ];
+
+        /* --- VARIABLES GLOBALES --- */
+        let currentQIndex = 0;
+        let score = 0;
+        let questionsQueue = [];
+        let mistakes = []; 
+        let maxQuestions = 10;
+
+        /* --- ELEMENTOS DOM --- */
+        const ui = {
+            startScreen: document.getElementById('start-screen'),
+            gameContainer: document.getElementById('game-container'),
+            endScreen: document.getElementById('end-screen'),
+            selectCount: document.getElementById('q-count-select'),
+            badge: document.getElementById('question-badge'),
+            primary: document.getElementById('primary-display'),
+            secondary: document.getElementById('secondary-display'),
+            options: document.getElementById('options-container'),
+            feedbackArea: document.getElementById('feedback-area'),
+            feedbackTitle: document.getElementById('feedback-title'),
+            feedbackDetail: document.getElementById('feedback-detail'),
+            nextBtn: document.getElementById('next-btn'),
+            aiBtn: document.getElementById('ai-btn'), // Nuevo botón IA
+            counter: document.getElementById('question-counter'),
+            score: document.getElementById('score-display'),
+            finalScore: document.getElementById('final-score'),
+            finalMsg: document.getElementById('final-message'),
+            mistakesContainer: document.getElementById('mistakes-container'),
+            mistakesList: document.getElementById('mistakes-list')
+        };
+
+        /* --- FLUJO DEL JUEGO --- */
+
+        function showStartScreen() {
+            ui.gameContainer.classList.add('hide');
+            ui.endScreen.classList.add('hide');
+            ui.startScreen.classList.remove('hide');
+        }
+
+        function initGame() {
+            const val = ui.selectCount.value;
+            maxQuestions = parseInt(val);
+            ui.startScreen.classList.add('hide');
+            ui.gameContainer.classList.remove('hide');
+            startGameLogic();
+        }
+
+        function startGameLogic() {
+            score = 0;
+            currentQIndex = 0;
+            mistakes = [];
+            ui.score.innerText = "Pts: 0";
+            generateQuestionQueue();
+            loadQuestion();
+        }
+
+        function generateQuestionQueue() {
+            questionsQueue = [];
+            let limit = (maxQuestions === 999) ? 30 : maxQuestions;
+
+            for (let i = 0; i < limit; i++) {
+                const randomMicrobe = microbios[Math.floor(Math.random() * microbios.length)];
+                const isClinical = Math.random() > 0.5 && randomMicrobe.caso;
+                
+                if (isClinical) {
+                    questionsQueue.push({
+                        type: 'clinical',
+                        microbe: randomMicrobe,
+                        text: randomMicrobe.caso,
+                        correctAnswer: randomMicrobe.nombre
+                    });
+                } else {
+                    const keys = Object.keys(randomMicrobe).filter(k => k !== 'nombre' && k !== 'caso');
+                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+                    questionsQueue.push({
+                        type: 'theory',
+                        microbe: randomMicrobe,
+                        key: randomKey,
+                        correctAnswer: randomMicrobe[randomKey]
+                    });
+                }
+            }
+            maxQuestions = questionsQueue.length;
+        }
+
+        function loadQuestion() {
+            if (currentQIndex >= maxQuestions) {
+                endGame();
+                return;
+            }
+
+            const q = questionsQueue[currentQIndex];
+            ui.counter.innerText = `${currentQIndex + 1}/${maxQuestions}`;
+            ui.feedbackArea.classList.remove('feedback-visible');
+            ui.feedbackArea.style.display = 'none';
+            ui.nextBtn.style.display = "none";
+            ui.aiBtn.style.display = "none"; // Ocultar botón IA al cargar
+            ui.options.innerHTML = "";
+
+            if (q.type === 'clinical') {
+                ui.badge.className = "badge-type type-clinical";
+                ui.badge.innerText = "Caso Clínico";
+                ui.primary.innerText = "Diagnóstico Presuntivo";
+                ui.primary.style.fontSize = "1.1rem";
+                ui.secondary.innerText = q.text;
+                renderOptions(getMicrobeNamesDistractors(q.correctAnswer), q.correctAnswer);
+            } else {
+                ui.badge.className = "badge-type type-theory";
+                ui.badge.innerText = "Teoría";
+                ui.primary.innerText = q.microbe.nombre;
+                ui.primary.style.fontSize = "1.3rem";
+                ui.secondary.innerText = formatQuestionText(q.key);
+                renderOptions(getPropertyDistractors(q.key, q.correctAnswer), q.correctAnswer);
+            }
+        }
+
+        function renderOptions(optionsList, correct) {
+            const shuffled = [...optionsList, correct].sort(() => Math.random() - 0.5);
+            shuffled.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.className = 'option-btn';
+                btn.onclick = () => checkAnswer(btn, opt, correct);
+                ui.options.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(btn, selected, correct) {
+            const btns = ui.options.querySelectorAll('button.option-btn');
+            btns.forEach(b => b.disabled = true);
+            const q = questionsQueue[currentQIndex];
+
+            ui.feedbackArea.style.display = 'block';
+            ui.feedbackArea.classList.add('feedback-visible');
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                ui.feedbackTitle.innerText = "¡Correcto!";
+                ui.feedbackTitle.style.color = "var(--correct-color)";
+                ui.feedbackDetail.innerText = "";
+                score++;
+                ui.score.innerText = `Pts: ${score}`;
+            } else {
+                btn.classList.add('wrong');
+                ui.feedbackTitle.innerText = "Incorrecto";
+                ui.feedbackTitle.style.color = "var(--wrong-color)";
+                ui.feedbackDetail.innerText = `Respuesta: ${correct}`;
+                
+                btns.forEach(b => {
+                    if (b.innerText === correct) b.classList.add('correct');
+                });
+                
+                mistakes.push(`${q.microbe.nombre} (${q.type === 'clinical' ? 'Caso' : q.key})`);
+            }
+            ui.nextBtn.style.display = "block";
+            ui.aiBtn.style.display = "block"; // Mostrar botón IA
+        }
+
+        /* --- LÓGICA DE INTELIGENCIA ARTIFICIAL (Gratuita) --- */
+        function askAI() {
+            const q = questionsQueue[currentQIndex];
+            
+            let promptText = "";
+            
+            if (q.type === 'clinical') {
+                promptText = `Soy estudiante de medicina. Tengo este caso clínico de microbiología: "${q.text}". La respuesta correcta es "${q.correctAnswer}". Por favor explícame la fisiopatología, por qué es ese microorganismo y descarta las otras posibilidades comunes. Sé breve y didáctico.`;
+            } else {
+                promptText = `Soy estudiante de medicina. Estoy estudiando microbiología sobre "${q.microbe.nombre}". La pregunta es sobre "${q.key}" y la respuesta correcta es "${q.correctAnswer}". Explícame por qué tiene esa característica y su importancia clínica.`;
+            }
+
+            // Codificar para URL
+            const encodedPrompt = encodeURIComponent(promptText);
+            
+            // Usar ChatGPT (funciona directo si el usuario está logueado o en modo invitado)
+            const url = `https://chatgpt.com/?q=${encodedPrompt}`;
+            
+            // Alternativa: Si prefieres Perplexity (mejor para datos puros), descomenta abajo:
+            // const url = `https://www.perplexity.ai/?q=${encodedPrompt}`;
+
+            window.open(url, '_blank');
+        }
+
+        function nextQuestion() {
+            currentQIndex++;
+            loadQuestion();
+        }
+
+        /* --- HELPERS --- */
+        function formatQuestionText(key) {
+            const map = { gram: "¿Reacción al Gram?", catalasa: "¿Catalasa?", coagulasa: "¿Coagulasa?", oxidasa: "¿Oxidasa?", hemolisis: "¿Hemólisis?", fermentacion: "¿Fermentación?", cultivo: "¿Medio de cultivo?", tincion: "¿Tinción?", motilidad: "¿Movilidad?", espora: "¿Espora?", capsula: "¿Cápsula?", prueba: "¿Prueba Bioquímica?", metabolismo: "¿Metabolismo?" };
+            return map[key] || `¿${key.charAt(0).toUpperCase() + key.slice(1)}?`;
+        }
+
+        function getMicrobeNamesDistractors(correct) {
+            const all = microbios.map(m => m.nombre).filter(n => n !== correct);
+            return [...new Set(all)].sort(() => 0.5 - Math.random()).slice(0, 3);
+        }
+
+        function getPropertyDistractors(key, correct) {
+            let pool = [];
+            if(key === 'gram') pool = ["Gram Positivo", "Gram Negativo", "Gram Variable"];
+            else if(['catalasa','coagulasa','oxidasa','motilidad','capsula'].includes(key)) pool = ["Positivo", "Negativo"];
+            else {
+                pool = microbios.map(m => m[key]).filter(v => v && v !== correct);
+                if(pool.length < 3) pool.push("No aplica", "Variable");
+            }
+            return [...new Set(pool)].sort(() => 0.5 - Math.random()).slice(0, 3);
+        }
+
+        function endGame() {
+            ui.gameContainer.classList.add('hide');
+            ui.endScreen.classList.remove('hide');
+            
+            const percentage = Math.round((score / maxQuestions) * 100);
+            ui.finalScore.innerText = `${percentage}%`;
+            
+            if(percentage >= 60) ui.finalMsg.innerText = "¡Aprobado!"; 
+            else ui.finalMsg.innerText = "Sigue practicando.";
+
+            if (mistakes.length > 0) {
+                ui.mistakesContainer.classList.remove('hide');
+                ui.mistakesList.innerHTML = "";
+                mistakes.forEach(m => {
+                    const li = document.createElement('li');
+                    li.innerText = m;
+                    ui.mistakesList.appendChild(li);
+                });
+            } else {
+                ui.mistakesContainer.classList.add('hide');
+                ui.finalMsg.innerText = "¡Excelente! Sin errores.";
+            }
+        }
+    </script>
+</body>
+</html>
