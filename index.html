@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MicroBio UNR - Trainer AI</title>
+    <title>Microbiología Quiz</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -13,7 +13,7 @@
             --text-color: #2c3e50;
             --correct-color: #27ae60;
             --wrong-color: #c0392b;
-            --ai-color: #8e44ad; /* Color violeta para IA */
+            --ai-color: #8e44ad;
             --card-bg: #ffffff;
         }
 
@@ -147,7 +147,7 @@
         button.correct { background-color: var(--correct-color) !important; color: white !important; border-color: var(--correct-color) !important; }
         button.wrong { background-color: var(--wrong-color) !important; color: white !important; border-color: var(--wrong-color) !important; opacity: 0.8; }
 
-        /* --- Botones de Acción (Inicio, Siguiente, IA) --- */
+        /* --- Botones de Acción --- */
         .action-btn {
             background-color: var(--accent-color);
             color: white;
@@ -163,12 +163,11 @@
         
         .action-btn:hover { background-color: #2980b9; }
 
-        /* Botón de IA específico */
         .ai-btn {
             background: linear-gradient(45deg, #8e44ad, #9b59b6);
             color: white;
             margin-top: 10px;
-            display: none; /* Oculto por defecto */
+            display: none;
             border: none;
             cursor: pointer;
             padding: 12px;
@@ -220,8 +219,8 @@
 
     <!-- PANTALLA DE INICIO -->
     <div class="container" id="start-screen">
-        <h1>MicroBio UNR</h1>
-        <p style="color: #666; margin-bottom: 30px;">Repaso de Bacteriología Médica</p>
+        <h1>Microbiología</h1>
+        <p style="color: #666; margin-bottom: 30px;">Selecciona la configuración:</p>
         
         <div class="config-box">
             <label for="q-count-select" style="font-weight: bold; text-align: left;">Cantidad de preguntas:</label>
@@ -240,7 +239,7 @@
     <!-- PANTALLA DE JUEGO -->
     <div class="container hide" id="game-container">
         <div class="header-bar">
-            <h1>MicroBio UNR</h1>
+            <h1>Microbiología</h1>
             <div class="score-badge">
                 <span id="question-counter">1/10</span> | <span id="score-display">Pts: 0</span>
             </div>
@@ -263,8 +262,6 @@
         <div id="feedback-area" class="feedback-area">
             <strong id="feedback-title"></strong>
             <p id="feedback-detail" style="margin: 5px 0 0 0; font-size: 0.95rem;"></p>
-            
-            <!-- BOTÓN DE INTELIGENCIA ARTIFICIAL -->
             <button id="ai-btn" class="ai-btn" onclick="askAI()">✨ Explicar con IA</button>
         </div>
         
@@ -286,25 +283,161 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS --- */
+        /* --- BASE DE DATOS EXTENDIDA (3 CASOS POR MICROBIO) --- */
         const microbios = [
-            { nombre: "Staphylococcus aureus", gram: "Gram Positivo", catalasa: "Positivo", coagulasa: "Positivo", caso: "Paciente con forúnculo cutáneo y absceso. Muestra purulenta muestra cocos en racimos." },
-            { nombre: "Staphylococcus epidermidis", gram: "Gram Positivo", coagulasa: "Negativo", caso: "Infección de catéter. Hemocultivo positivo para cocos en racimos, coagulasa negativo." },
-            { nombre: "Staphylococcus saprophyticus", gram: "Gram Positivo", caso: "Mujer joven con disuria. Urocultivo: Cocos G+ resistentes a Novobiocina." },
-            { nombre: "Streptococcus pyogenes", gram: "Gram Positivo", hemolisis: "Beta hemolítico", prueba: "Sensible a Bacitracina", caso: "Faringitis purulenta. Exudado con cocos en cadenas beta-hemolíticos." },
-            { nombre: "Streptococcus pneumoniae", gram: "Gram Positivo", forma: "Diplococo lanceolado", capsula: "Positivo (Quellung +)", caso: "Neumonía y rigidez de nuca. LCR con diplococos Gram positivos lanceolados." },
-            { nombre: "Neisseria meningitidis", gram: "Gram Negativo", forma: "Diplococo (grano café)", metabolismo: "Fermenta Maltosa y Glucosa", caso: "Petequias, fiebre brusca y cefalea intensa." },
-            { nombre: "Neisseria gonorrhoeae", gram: "Gram Negativo", forma: "Diplococo intracelular", caso: "Secreción uretral purulenta. Gram: diplococos G- dentro de neutrófilos." },
-            { nombre: "Escherichia coli", gram: "Gram Negativo", fermentacion: "Lactosa Positivo", prueba: "Indol Positivo", caso: "Infección urinaria. Bacilo G- fermentador de lactosa (rosa en MacConkey)." },
-            { nombre: "Pseudomonas aeruginosa", gram: "Gram Negativo", oxidasa: "Positivo", olor: "Frutas/Uvas", caso: "Paciente quemado, herida con pus verdoso y olor dulzón." },
-            { nombre: "Treponema pallidum", tincion: "Campo Oscuro", lesion: "Chancro duro", caso: "Úlcera genital indolora. Espiroqueta visible solo en campo oscuro." },
-            { nombre: "Mycobacterium tuberculosis", tincion: "Ziehl-Neelsen (BAAR)", cultivo: "Lowenstein-Jensen", caso: "Tos crónica, pérdida de peso, sudoración. Rx con cavitación apical." },
-            { nombre: "Clostridium tetani", gram: "Gram Positivo", forma: "Bacilo en palillo de tambor", caso: "Herida punzante, trismo y risa sardónica." },
-            { nombre: "Vibrio cholerae", gram: "Gram Negativo", forma: "Bacilo curvo (coma)", caso: "Diarrea 'agua de arroz' tras comer mariscos." },
-            { nombre: "Haemophilus influenzae", gram: "Gram Negativo", cultivo: "Agar Chocolate (X y V)", caso: "Epiglotitis en niño no vacunado." },
-            { nombre: "Brucella spp.", gram: "Gram Negativo", cultivo: "Hemocultivo (lento)", caso: "Fiebre ondulante, trabajador rural en contacto con ganado." },
-            { nombre: "Klebsiella pneumoniae", gram: "Gram Negativo", fermentacion: "Lactosa Positivo", motilidad: "Inmóvil", caso: "Neumonía en alcohólico, esputo jalea de grosella." },
-            { nombre: "Proteus mirabilis", gram: "Gram Negativo", prueba: "Ureasa Positivo", caracteristica: "Swarming", caso: "Infección urinaria asociada a cálculos de estruvita." }
+            { 
+                nombre: "Staphylococcus aureus", 
+                gram: "Gram Positivo", catalasa: "Positivo", coagulasa: "Positivo",
+                casos: [
+                    "Paciente con forúnculo cutáneo y absceso doloroso. La muestra purulenta muestra cocos en racimos.",
+                    "Usuario de drogas intravenosas con fiebre alta y soplo cardíaco nuevo (Endocarditis tricuspídea). Hemocultivos positivos.",
+                    "Neonato con 'piel escaldada', ampollas generalizadas y signo de Nikolsky positivo."
+                ]
+            },
+            { 
+                nombre: "Staphylococcus epidermidis", 
+                gram: "Gram Positivo", coagulasa: "Negativo",
+                casos: [
+                    "Paciente con infección de catéter venoso central. Hemocultivo positivo para cocos en racimos coagulasa negativo.",
+                    "Paciente con prótesis valvular cardíaca que presenta fiebre baja persistente meses después de la cirugía.",
+                    "Infección de shunt ventriculoperitoneal en niño con hidrocefalia."
+                ]
+            },
+            { 
+                nombre: "Staphylococcus saprophyticus", 
+                gram: "Gram Positivo", coagulasa: "Negativo",
+                casos: [
+                    "Mujer joven sexualmente activa con disuria y polaquiuria. Urocultivo: Cocos G+ resistentes a Novobiocina.",
+                    "Síndrome miccional en mujer de 22 años (" + "cistitis de la luna de miel" + "). Sedimento urinario con cocos G+.",
+                    "Infección urinaria baja en mujer sana. El agente es coagulasa negativo y resistente a Novobiocina."
+                ]
+            },
+            { 
+                nombre: "Streptococcus pyogenes", 
+                gram: "Gram Positivo", hemolisis: "Beta hemolítico", prueba: "Sensible a Bacitracina",
+                casos: [
+                    "Niño de 7 años con fiebre, odinofagia intensa y exudado faríngeo purulento. Cocos en cadenas.",
+                    "Paciente con impétigo costroso color miel alrededor de la boca. Cultivo beta-hemolítico sensible a bacitracina.",
+                    "Paciente con erisipela en pierna (placa roja brillante, dolorosa y bien delimitada) y fiebre alta."
+                ]
+            },
+            { 
+                nombre: "Streptococcus pneumoniae", 
+                gram: "Gram Positivo", forma: "Diplococo lanceolado", capsula: "Positivo (Quellung +)",
+                casos: [
+                    "Adulto mayor con neumonía lobar, fiebre brusca y esputo herrumbroso. Gram: Diplococos lanceolados.",
+                    "Niño con otitis media aguda purulenta. El agente es alfa-hemolítico y sensible a optoquina.",
+                    "Paciente con meningitis y rigidez de nuca. LCR turbio con diplococos Gram positivos."
+                ]
+            },
+            { 
+                nombre: "Neisseria meningitidis", 
+                gram: "Gram Negativo", forma: "Diplococo (grano café)", metabolismo: "Fermenta Maltosa y Glucosa",
+                casos: [
+                    "Adolescente con petequias en tronco, fiebre muy alta y rigidez de nuca. LCR con diplococos Gram negativos.",
+                    "Brote de meningitis en un cuartel militar. El agente fermenta glucosa y maltosa.",
+                    "Sepsis fulminante con hemorragia suprarrenal (Síndrome de Waterhouse-Friderichsen)."
+                ]
+            },
+            { 
+                nombre: "Neisseria gonorrhoeae", 
+                gram: "Gram Negativo", forma: "Diplococo intracelular",
+                casos: [
+                    "Varón con secreción uretral purulenta abundante y disuria. Gram: diplococos G- dentro de polimorfonucleares.",
+                    "Mujer con enfermedad pélvica inflamatoria (EPI) y dolor a la movilización del cuello uterino.",
+                    "Recién nacido con conjuntivitis purulenta severa (oftalmia neonatorum) al 2do día de vida."
+                ]
+            },
+            { 
+                nombre: "Escherichia coli", 
+                gram: "Gram Negativo", fermentacion: "Lactosa Positivo", prueba: "Indol Positivo",
+                casos: [
+                    "Mujer con cistitis no complicada. Urocultivo: Bacilo G- fermentador de lactosa e Indol positivo.",
+                    "Recién nacido con meningitis y sepsis. El agente posee antígeno K1.",
+                    "Paciente con diarrea del viajero tras volver del caribe. Diarrea acuosa sin sangre."
+                ]
+            },
+            { 
+                nombre: "Pseudomonas aeruginosa", 
+                gram: "Gram Negativo", oxidasa: "Positivo", olor: "Frutas/Uvas",
+                casos: [
+                    "Paciente gran quemado con infección de herida que presenta pus verdoso y olor dulzón.",
+                    "Otitis externa maligna en paciente diabético anciano. Dolor severo y otorrea.",
+                    "Neumonía asociada a ventilador en paciente con fibrosis quística. Esputo mucoide."
+                ]
+            },
+            { 
+                nombre: "Treponema pallidum", 
+                tincion: "Campo Oscuro", lesion: "Chancro duro",
+                casos: [
+                    "Paciente con úlcera genital indolora (chancro duro) de base limpia. VDRL positivo.",
+                    "Paciente con exantema maculopapular en palmas y plantas (Sífilis secundaria).",
+                    "Recién nacido con 'dientes de Hutchinson', nariz en silla de montar y tibia en sable."
+                ]
+            },
+            { 
+                nombre: "Mycobacterium tuberculosis", 
+                tincion: "Ziehl-Neelsen (BAAR)", cultivo: "Lowenstein-Jensen",
+                casos: [
+                    "Paciente con tos crónica (>3 sem), hemoptisis, pérdida de peso y fiebre vespertina.",
+                    "Radiografía de tórax con cavitación apical en paciente presidiario con tos productiva.",
+                    "Meningitis basal de evolución lenta en paciente inmunodeprimido. LCR con hipoglucorraquia severa."
+                ]
+            },
+            { 
+                nombre: "Clostridium tetani", 
+                gram: "Gram Positivo", forma: "Bacilo en palillo de tambor",
+                casos: [
+                    "Jardinero con herida punzante sucia. Días después presenta trismo (mandíbula trabada).",
+                    "Paciente con risa sardónica y opistótonos (arqueamiento de espalda) tras herida con clavo oxidado.",
+                    "Espasmos musculares generalizados ante estímulos mínimos en paciente no vacunado."
+                ]
+            },
+            { 
+                nombre: "Vibrio cholerae", 
+                gram: "Gram Negativo", forma: "Bacilo curvo (coma)",
+                casos: [
+                    "Paciente con diarrea acuosa profusa ('agua de arroz') y deshidratación severa rápida.",
+                    "Brote epidémico de diarrea tras consumo de mariscos crudos o agua contaminada.",
+                    "Heces líquidas sin leucocitos ni sangre, pero con gran pérdida de electrolitos."
+                ]
+            },
+            { 
+                nombre: "Haemophilus influenzae", 
+                gram: "Gram Negativo", cultivo: "Agar Chocolate (X y V)",
+                casos: [
+                    "Niño no vacunado (3 años) que llega babeando, con estridor y posición de trípode (Epiglotitis).",
+                    "Otitis media o sinusitis en niño pequeño. Cultivo requiere factores X (Hemina) y V (NAD).",
+                    "Meningitis en lactante no vacunado. Cocobacilo Gram negativo pleomórfico."
+                ]
+            },
+            { 
+                nombre: "Brucella spp.", 
+                gram: "Gram Negativo", cultivo: "Hemocultivo (lento)",
+                casos: [
+                    "Veterinario o trabajador de frigorífico con 'fiebre ondulante', sudoración nocturna y dolor articular.",
+                    "Paciente que consumió queso de cabra no pasteurizado y presenta fiebre y hepatoesplenomegalia.",
+                    "Cuadro febril de larga data con sacroileítis (dolor lumbar bajo) en trabajador rural."
+                ]
+            },
+            { 
+                nombre: "Klebsiella pneumoniae", 
+                gram: "Gram Negativo", fermentacion: "Lactosa Positivo", motilidad: "Inmóvil",
+                casos: [
+                    "Paciente alcohólico con neumonía severa. Esputo característico en 'jalea de grosella'.",
+                    "Neumonía lobar con abombamiento de la cisura en la radiografía. Bacilo encapsulado.",
+                    "Infección urinaria en paciente hospitalizado con sonda. Colonia mucosa en agar."
+                ]
+            },
+            { 
+                nombre: "Proteus mirabilis", 
+                gram: "Gram Negativo", prueba: "Ureasa Positivo", caracteristica: "Swarming",
+                casos: [
+                    "Paciente con litiasis renal coraliforme (cálculos de estruvita) e infección urinaria recurrente.",
+                    "Orina con pH muy alcalino y olor amoniacal fuerte.",
+                    "Cultivo en placa muestra crecimiento en ondas concéntricas que cubre todo el agar (Swarming)."
+                ]
+            }
         ];
 
         /* --- VARIABLES GLOBALES --- */
@@ -328,7 +461,7 @@
             feedbackTitle: document.getElementById('feedback-title'),
             feedbackDetail: document.getElementById('feedback-detail'),
             nextBtn: document.getElementById('next-btn'),
-            aiBtn: document.getElementById('ai-btn'), // Nuevo botón IA
+            aiBtn: document.getElementById('ai-btn'),
             counter: document.getElementById('question-counter'),
             score: document.getElementById('score-display'),
             finalScore: document.getElementById('final-score'),
@@ -364,21 +497,30 @@
 
         function generateQuestionQueue() {
             questionsQueue = [];
-            let limit = (maxQuestions === 999) ? 30 : maxQuestions;
+            let limit = (maxQuestions === 999) ? 50 : maxQuestions;
 
             for (let i = 0; i < limit; i++) {
                 const randomMicrobe = microbios[Math.floor(Math.random() * microbios.length)];
-                const isClinical = Math.random() > 0.5 && randomMicrobe.caso;
+                
+                // Verificar si tiene casos clínicos definidos
+                const hasCases = randomMicrobe.casos && randomMicrobe.casos.length > 0;
+                
+                // 50% probabilidad de Caso Clínico (si existe) vs Teórica
+                const isClinical = Math.random() > 0.5 && hasCases;
                 
                 if (isClinical) {
+                    // Seleccionar UNO de los 3 casos al azar
+                    const randomCaseText = randomMicrobe.casos[Math.floor(Math.random() * randomMicrobe.casos.length)];
+                    
                     questionsQueue.push({
                         type: 'clinical',
                         microbe: randomMicrobe,
-                        text: randomMicrobe.caso,
+                        text: randomCaseText,
                         correctAnswer: randomMicrobe.nombre
                     });
                 } else {
-                    const keys = Object.keys(randomMicrobe).filter(k => k !== 'nombre' && k !== 'caso');
+                    // Pregunta teórica
+                    const keys = Object.keys(randomMicrobe).filter(k => k !== 'nombre' && k !== 'casos');
                     const randomKey = keys[Math.floor(Math.random() * keys.length)];
                     questionsQueue.push({
                         type: 'theory',
@@ -402,7 +544,7 @@
             ui.feedbackArea.classList.remove('feedback-visible');
             ui.feedbackArea.style.display = 'none';
             ui.nextBtn.style.display = "none";
-            ui.aiBtn.style.display = "none"; // Ocultar botón IA al cargar
+            ui.aiBtn.style.display = "none";
             ui.options.innerHTML = "";
 
             if (q.type === 'clinical') {
@@ -461,30 +603,20 @@
                 mistakes.push(`${q.microbe.nombre} (${q.type === 'clinical' ? 'Caso' : q.key})`);
             }
             ui.nextBtn.style.display = "block";
-            ui.aiBtn.style.display = "block"; // Mostrar botón IA
+            ui.aiBtn.style.display = "block";
         }
 
-        /* --- LÓGICA DE INTELIGENCIA ARTIFICIAL (Gratuita) --- */
+        /* --- LÓGICA DE IA --- */
         function askAI() {
             const q = questionsQueue[currentQIndex];
-            
             let promptText = "";
-            
             if (q.type === 'clinical') {
                 promptText = `Soy estudiante de medicina. Tengo este caso clínico de microbiología: "${q.text}". La respuesta correcta es "${q.correctAnswer}". Por favor explícame la fisiopatología, por qué es ese microorganismo y descarta las otras posibilidades comunes. Sé breve y didáctico.`;
             } else {
                 promptText = `Soy estudiante de medicina. Estoy estudiando microbiología sobre "${q.microbe.nombre}". La pregunta es sobre "${q.key}" y la respuesta correcta es "${q.correctAnswer}". Explícame por qué tiene esa característica y su importancia clínica.`;
             }
-
-            // Codificar para URL
             const encodedPrompt = encodeURIComponent(promptText);
-            
-            // Usar ChatGPT (funciona directo si el usuario está logueado o en modo invitado)
             const url = `https://chatgpt.com/?q=${encodedPrompt}`;
-            
-            // Alternativa: Si prefieres Perplexity (mejor para datos puros), descomenta abajo:
-            // const url = `https://www.perplexity.ai/?q=${encodedPrompt}`;
-
             window.open(url, '_blank');
         }
 
@@ -493,26 +625,31 @@
             loadQuestion();
         }
 
-        /* --- HELPERS --- */
+        /* --- GENERADORES DE OPCIONES --- */
+
         function formatQuestionText(key) {
             const map = { gram: "¿Reacción al Gram?", catalasa: "¿Catalasa?", coagulasa: "¿Coagulasa?", oxidasa: "¿Oxidasa?", hemolisis: "¿Hemólisis?", fermentacion: "¿Fermentación?", cultivo: "¿Medio de cultivo?", tincion: "¿Tinción?", motilidad: "¿Movilidad?", espora: "¿Espora?", capsula: "¿Cápsula?", prueba: "¿Prueba Bioquímica?", metabolismo: "¿Metabolismo?" };
             return map[key] || `¿${key.charAt(0).toUpperCase() + key.slice(1)}?`;
         }
 
         function getMicrobeNamesDistractors(correct) {
-            const all = microbios.map(m => m.nombre).filter(n => n !== correct);
-            return [...new Set(all)].sort(() => 0.5 - Math.random()).slice(0, 3);
+            const allNames = microbios.map(m => m.nombre);
+            const uniqueOptions = [...new Set(allNames)].filter(n => n !== correct);
+            return uniqueOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
         }
 
         function getPropertyDistractors(key, correct) {
             let pool = [];
-            if(key === 'gram') pool = ["Gram Positivo", "Gram Negativo", "Gram Variable"];
-            else if(['catalasa','coagulasa','oxidasa','motilidad','capsula'].includes(key)) pool = ["Positivo", "Negativo"];
+            if(key === 'gram') pool = ["Gram Positivo", "Gram Negativo", "Gram Variable", "No visualizable"];
+            else if(['catalasa','coagulasa','oxidasa','motilidad','capsula'].includes(key)) pool = ["Positivo", "Negativo", "Variable"];
+            else if(key === 'hemolisis') pool = ["Alfa hemolítico", "Beta hemolítico", "Gamma hemolítico"];
             else {
-                pool = microbios.map(m => m[key]).filter(v => v && v !== correct);
-                if(pool.length < 3) pool.push("No aplica", "Variable");
+                pool = microbios.map(m => m[key]).filter(v => v);
+                pool.push("No aplica", "Variable", "Indeterminado");
             }
-            return [...new Set(pool)].sort(() => 0.5 - Math.random()).slice(0, 3);
+            // Eliminar duplicados y filtrar correcta
+            const uniqueOptions = [...new Set(pool)].filter(opt => opt !== correct);
+            return uniqueOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
         }
 
         function endGame() {
