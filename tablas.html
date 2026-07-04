@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microbiología UNR</title>
+<link rel="stylesheet" href="styles.css">
+<script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="brand-eyebrow"><a class="home-link" href="index.html">← Módulos</a> · Microbiología · 3er año UNR</div>
+      <h1 id="pageTitle">Repaso</h1>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="statTotal">–</div><div class="l">tarjetas</div></div>
+    <div class="stat"><div class="n" id="statDue">–</div><div class="l">para hoy</div></div>
+    <div class="stat"><div class="n" id="statMastered">–</div><div class="l">dominadas</div></div>
+    <div class="stat"><div class="n" id="statStreak">–</div><div class="l">racha (días)</div></div>
+  </div>
+
+  <div id="home">
+    <div class="panel">
+      <h2>¿Qué querés repasar?</h2>
+      <input class="search" id="searchBox" placeholder="Buscar organismo...">
+      <div class="toggle-row">
+        <label class="toggle-chip"><input type="checkbox" id="toggleOpen" checked> Tarjetas de recuerdo abierto</label>
+        <label class="toggle-chip"><input type="checkbox" id="toggleMC" checked> Opción múltiple</label>
+      </div>
+      <div class="group-list" id="groupList"></div>
+      <div class="actions">
+        <button class="btn-primary" id="btnStudyDue">Repasar pendientes (<span id="dueCount">0</span>)</button>
+        <button class="btn-secondary" id="btnStudyAll">Explorar selección completa</button>
+        <button class="btn-ghost" id="btnSelectAll">Marcar todo</button>
+        <button class="btn-ghost" id="btnSelectNone">Desmarcar todo</button>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <button class="small-link" id="btnReset">Reiniciar todo mi progreso</button>
+    </div>
+  </div>
+
+  <div id="study">
+    <div class="session-bar">
+      <span id="sessionLabel">Sesión</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span id="sessionCount">0 / 0</span>
+    </div>
+
+    <div id="openCardWrap">
+      <div class="card-stage">
+        <div class="card" id="card">
+          <div class="face front">
+            <div class="stain-wash" id="washFront"></div>
+            <div class="tag-row" id="tagsFront"></div>
+            <div class="q-text" id="qText"></div>
+            <div class="flip-hint">Tocá la tarjeta para ver la respuesta</div>
+          </div>
+          <div class="face back">
+            <div class="stain-wash" id="washBack"></div>
+            <div class="tag-row" id="tagsBack"></div>
+            <div class="a-text" id="aText"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grade-row" id="gradeRow">
+        <button class="grade-btn grade-bad" id="gradeBad">No la sabía<small>vuelve pronto</small></button>
+        <button class="grade-btn grade-mid" id="gradeMid">Dudé<small>repaso corto</small></button>
+        <button class="grade-btn grade-good" id="gradeGood">La sabía<small>se espacia</small></button>
+      </div>
+    </div>
+
+    <div id="mcCardWrap">
+      <div class="mc-panel">
+        <div class="tag-row" id="mcTags"></div>
+        <div class="mc-q" id="mcQ"></div>
+        <div class="mc-options" id="mcOptions"></div>
+        <div class="mc-explain" id="mcExplain"></div>
+      </div>
+      <button class="btn-primary mc-continue" id="mcContinue">Continuar →</button>
+    </div>
+
+    <div class="actions">
+      <button class="btn-ghost" id="btnExitStudy">← Volver al inicio</button>
+    </div>
+  </div>
+
+  <div id="end">
+    <h2>Sesión terminada</h2>
+    <p id="endSummary"></p>
+    <div class="actions" style="justify-content:center;">
+      <button class="btn-primary" id="btnBackHome">Volver al inicio</button>
+    </div>
+  </div>
+
+  <div class="footer-note" id="footerNote"></div>
+</div>
+
+<script src="theme.js"></script>
+<script src="data/tablas.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>
