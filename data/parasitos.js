@@ -468,6 +468,28 @@ window.MODULE = {
       q: '¿Cómo se diagnostica la triquinosis?',
       a: 'Búsqueda de IgM y ELISA.'
     },
+
+    // --- Comparaciones de alto rendimiento ---
+    {
+      id: 'p82', grupo: 'Protozoarios hemáticos y tisulares', org: 'Comparación de protozoarios hemáticos', cat: 'Comparación', tincion: 'protozoo',
+      q: '¿Qué vector transmite cada uno de los protozoarios hemáticos: Leishmania, Trypanosoma cruzi y Plasmodium?',
+      a: 'Leishmania: flebótomo (mosca de los géneros Phlebotomus/Lutzomyia). Trypanosoma cruzi: vinchuca (Triatoma infestans), por sus heces, no por la picadura en sí. Plasmodium: mosquito Anopheles hembra, por picadura directa.'
+    },
+    {
+      id: 'p83', grupo: 'Protozoarios intestinales', org: 'Giardia vs Entamoeba histolytica', cat: 'Comparación', tincion: 'protozoo',
+      q: '¿En qué se diferencian Giardia lamblia y Entamoeba histolytica en cuanto al tipo de diarrea que producen?',
+      a: 'Giardia produce diarrea acuosa, grasa y maloliente (esteatorrea, por malabsorción de lípidos) SIN invadir la mucosa. Entamoeba histolytica invade la mucosa del colon y produce diarrea disenteriforme (con moco, pus y sangre) con riesgo de abscesos extraintestinales (hepáticos).'
+    },
+    {
+      id: 'p84', grupo: 'Cestodes', org: 'Taenia solium vs Echinococcus granulosus', cat: 'Comparación', tincion: 'plano',
+      q: '¿Qué tienen en común la cisticercosis (T. solium) y la hidatidosis (E. granulosus) como enfermedades por larvas?',
+      a: 'Ambas son producidas por la localización tisular de una forma larvaria de un cestode en el hombre (accidental en el caso de la hidatidosis, donde el hombre no es el hospedador natural). Ambas pueden formar quistes que se calcifican con el tiempo y cuyo diagnóstico se apoya en serología e imágenes, no en coproparasitológico.'
+    },
+    {
+      id: 'p85', grupo: 'Nematodes', org: 'Ascaris vs Trichinella', cat: 'Comparación', tincion: 'cilindrico',
+      q: '¿En qué se diferencia la migración larvaria de Ascaris lumbricoides y de Trichinella spiralis?',
+      a: 'La larva de Ascaris migra hacia el pulmón (ciclo de Loos) antes de volver al intestino como adulto. La larva de Trichinella migra por vía linfohemática desde el intestino hacia el músculo estriado, donde se encapsula definitivamente (no vuelve al intestino).'
+    },
   ],
   mc: [
     {
@@ -619,6 +641,25 @@ window.MODULE = {
       q: '¿Qué particularidad del ciclo de Hymenolepis nana explica que la infección pueda perpetuarse sin reinfección externa?',
       options: ['Tiene ciclo heteroxeno obligado', 'Puede autoinfectar al huésped, ya que los huevos pueden quedar en el intestino y continuar el ciclo', 'Forma esporas resistentes en el ambiente', 'Se transmite únicamente por vía sexual'],
       correct: 1, explain: 'Hymenolepis nana tiene capacidad de autoinfección: los huevos pueden eclosionar y continuar el ciclo dentro del mismo intestino sin necesidad de salir al ambiente.'
+    },
+
+    {
+      id: 'pmc26', grupo: 'Protozoarios hemáticos y tisulares', org: 'Comparación de vectores', cat: 'Opción múltiple', tincion: 'protozoo', type: 'mc',
+      q: '¿Cuál de estos parásitos NO se transmite por la picadura directa del vector, sino por el contacto de sus heces con la piel lesionada?',
+      options: ['Leishmania (flebótomo)', 'Plasmodium (Anopheles)', 'Trypanosoma cruzi (vinchuca)', 'Ninguno; todos se transmiten por picadura directa'],
+      correct: 2, explain: 'A diferencia de Leishmania y Plasmodium (que se transmiten directamente por la picadura), Trypanosoma cruzi se transmite cuando las heces de la vinchuca (liberadas al picar) entran por la piel lesionada al rascarse.'
+    },
+    {
+      id: 'pmc27', grupo: 'Protozoarios intestinales', org: 'Giardia vs Entamoeba histolytica', cat: 'Opción múltiple', tincion: 'protozoo', type: 'mc',
+      q: '¿Cuál de estos dos protozoarios intestinales invade la mucosa y puede formar abscesos hepáticos?',
+      options: ['Giardia lamblia', 'Entamoeba histolytica', 'Ambos por igual', 'Ninguno de los dos'],
+      correct: 1, explain: 'Entamoeba histolytica invade la mucosa del colon y puede diseminarse por vía portal al hígado, formando abscesos; Giardia no invade, solo tapiza la mucosa del intestino delgado.'
+    },
+    {
+      id: 'pmc28', grupo: 'Cestodes', org: 'Echinococcus granulosus', cat: 'Opción múltiple', tincion: 'plano', type: 'mc',
+      q: '¿Cuál es el hospedador definitivo natural de Echinococcus granulosus?',
+      options: ['El hombre', 'El perro', 'El ovino', 'El caracol'],
+      correct: 1, explain: 'El perro es el hospedador definitivo, donde se aloja la tenia adulta; el ovino es el hospedador intermediario natural, y el hombre es un hospedador intermediario accidental.'
     },
   ]
 };

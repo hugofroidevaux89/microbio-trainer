@@ -683,6 +683,38 @@ window.MODULE = {
       q: '¿Qué información aporta y qué limitación tiene el PAP como método de diagnóstico del VPH?',
       a: 'El PAP (citología exfoliativa) es un screening inicial que indica si las células están o no infectadas por VPH, pero NO indica si el virus está en las células basales o ya atravesó la lámina propia. Se complementa con búsqueda de antígeno, biología molecular junto a colposcopía y PCR.'
     },
+
+    // --- Comparaciones de alto rendimiento ---
+    {
+      id: 'v117', grupo: 'Virus hemorrágicos', org: 'Junín vs Hanta', cat: 'Comparación', tincion: 'arn',
+      q: '¿Qué tienen en común y en qué se diferencian el virus Junín y el virus Hanta en cuanto a su reservorio?',
+      a: 'Ambos tienen como reservorio a roedores (ratón maicero para Junín, ratón colilargo para Hanta) que liberan el virus por orina, heces y saliva/sangre. Se diferencian en que Junín causa fiebre hemorrágica argentina, mientras que Hanta causa síndrome pulmonar (América) o fiebre hemorrágica con síndrome renal (Europa/Asia).'
+    },
+    {
+      id: 'v118', grupo: 'Virus de hepatitis', org: 'Comparación de hepatitis por vía de transmisión', cat: 'Comparación', tincion: 'arn',
+      q: '¿Cómo se agrupan las 5 hepatitis virales según su vía de transmisión?',
+      a: 'Fecal-oral: HAV y HEV (no cronifican, HEV es grave en embarazadas del 3er trimestre). Parenteral/sexual/perinatal: HBV, HCV y HDV (pueden cronificar; HDV depende de HBV para replicarse).'
+    },
+    {
+      id: 'v119', grupo: 'Herpesviridae', org: 'Comparación de subfamilias de Herpesviridae', cat: 'Comparación', tincion: 'adn',
+      q: '¿Qué virus pertenecen a cada subfamilia de Herpesviridae y dónde queda latente cada una?',
+      a: 'Alphaherpesvirinae (ganglios sensoriales): HSV1, HSV2, Varicela-Zóster. Betaherpesvirinae (tejido linfoide, glándulas secretoras, riñón): CMV, HHV6, HHV7. Gammaherpesvirinae (linfocitos B): HHV8, Epstein-Barr.'
+    },
+    {
+      id: 'v120', grupo: 'Virus ARN envueltos', org: 'Sarampión vs Rubéola', cat: 'Comparación', tincion: 'arn',
+      q: '¿Qué signo patognomónico diferencia al sarampión de la rubéola, siendo ambos causantes de exantema?',
+      a: 'El sarampión presenta manchas de Koplik (patognomónicas) además de conjuntivitis con fotofobia; la rubéola no tiene un signo patognomónico equivalente, pero se caracteriza por poliadenomegalias (postauricular, suboccipital, laterocervical) y artromialgias.'
+    },
+    {
+      id: 'v121', grupo: 'Enterovirus', org: 'Poliovirus vs Coxsackie', cat: 'Comparación', tincion: 'arn',
+      q: '¿Qué tienen en común Poliovirus y Coxsackie en su capacidad de causar meningitis, y en qué se diferencian sus cuadros característicos?',
+      a: 'Ambos pueden causar meningitis aséptica autolimitada con LCR claro. Poliovirus se distingue por su potencial de causar parálisis (poliomielitis); Coxsackie A causa herpangina y conjuntivitis hemorrágica, mientras que Coxsackie B causa pleurodinia y miocarditis/pericarditis.'
+    },
+    {
+      id: 'v122', grupo: 'Retroviridae', org: 'VIH vs HBV', cat: 'Comparación', tincion: 'retrovirus',
+      q: '¿Qué tienen en común el VIH y el virus de la hepatitis B en cuanto a su maquinaria enzimática?',
+      a: 'Ambos poseen una transcriptasa inversa (retrotranscriptasa): el VIH la usa para transcribir su ARN a ADN e integrarlo al genoma del huésped (provirus); el HBV la usa como parte de su ciclo replicativo, a pesar de tener genoma ADN.'
+    },
   ],
   mc: [
     {
@@ -876,6 +908,37 @@ window.MODULE = {
       q: '¿Por qué el Rhinovirus se limita a infectar las vías aéreas superiores?',
       options: ['Porque se multiplica óptimamente a 33°C, la temperatura de la mucosa nasal', 'Porque no puede atravesar la mucosa bronquial', 'Porque requiere anaerobiosis estricta', 'Porque es destruido por la temperatura corporal central'],
       correct: 0, explain: 'El Rhinovirus se multiplica mejor a 33°C (temperatura de la mucosa nasal y vías aéreas superiores), por lo que no suele producir infecciones de vías bajas.'
+    },
+
+    {
+      id: 'vmc33', grupo: 'Virus hemorrágicos', org: 'Junín vs Hanta', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿Qué tienen en común el virus Junín y el virus Hanta en cuanto a su reservorio?',
+      options: ['Ambos usan mosquitos como vector', 'Ambos tienen como reservorio a roedores', 'Ambos se transmiten solo por vía sexual', 'Ambos son virus ADN'],
+      correct: 1, explain: 'Tanto el virus Junín (ratón maicero) como el Hanta (ratón colilargo) tienen como reservorio a roedores que eliminan el virus por orina, heces y sangre/saliva.'
+    },
+    {
+      id: 'vmc34', grupo: 'Virus de hepatitis', org: 'Comparación de hepatitis', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿Cuáles de las 5 hepatitis virales se transmiten por vía fecal-oral y NO cronifican?',
+      options: ['HBV y HCV', 'HAV y HEV', 'HDV y HBV', 'Ninguna; todas cronifican'],
+      correct: 1, explain: 'HAV y HEV se transmiten por vía fecal-oral y no cronifican (aunque HEV puede ser grave en embarazadas del 3er trimestre); HBV, HCV y HDV se transmiten por sangre/sexual/perinatal y pueden cronificar.'
+    },
+    {
+      id: 'vmc35', grupo: 'Herpesviridae', org: 'Subfamilias de Herpesviridae', cat: 'Opción múltiple', tincion: 'adn', type: 'mc',
+      q: '¿En qué tipo de célula queda latente el virus de Epstein-Barr, a diferencia del HSV1?',
+      options: ['Ganglios sensoriales, igual que HSV1', 'Linfocitos B', 'Tejido renal', 'Células endoteliales exclusivamente'],
+      correct: 1, explain: 'El EBV pertenece a la subfamilia Gammaherpesvirinae y queda latente en linfocitos B, a diferencia del HSV1 (Alphaherpesvirinae), que queda latente en ganglios sensoriales.'
+    },
+    {
+      id: 'vmc36', grupo: 'Enterovirus', org: 'Poliovirus vs Coxsackie', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: 'Un niño presenta fiebre y vesículas dolorosas en manos, pies y boca. ¿Qué virus es el más probable?',
+      options: ['Poliovirus', 'Coxsackie A', 'Sarampión', 'Rubéola'],
+      correct: 1, explain: 'El síndrome mano-pie-boca es causado por Coxsackie A, con exantema vesicular característico en esas localizaciones.'
+    },
+    {
+      id: 'vmc37', grupo: 'Virus ARN envueltos', org: 'Sarampión', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿Qué relación existe entre la aparición del exantema en el sarampión y la respuesta inmune del paciente?',
+      options: ['El exantema aparece antes de que se genere cualquier respuesta inmune', 'El exantema coincide con la aparición de la respuesta inmune y la eliminación del virus', 'El exantema es causado por una reacción alérgica no relacionada con el virus', 'El exantema aparece solo si el paciente está inmunodeprimido'],
+      correct: 1, explain: 'La patogenia del sarampión es en parte inmunomediada: el exantema coincide con la aparición de la respuesta inmune del huésped y la eliminación del virus.'
     },
   ]
 };

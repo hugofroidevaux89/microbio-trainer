@@ -783,6 +783,85 @@ window.MODULE = {
       q: '¿Cómo se diagnostica la psitacosis? (directo e indirecto)',
       a: 'Directo: examen microscópico con anticuerpos fluorescentes y PCR. Indirecto: microinmunofluorescencia y búsqueda de IgM.'
     },
+
+    // --- Datos puntuales adicionales (ampliación) ---
+    {
+      id: 'b149', grupo: 'Bacilos Gram(-) exigentes', org: 'Brucella spp.', cat: 'Transmisión', tincion: 'negativo',
+      q: '¿Cuál es el período de incubación de la brucelosis?',
+      a: 'De 1 a 4 semanas.'
+    },
+    {
+      id: 'b150', grupo: 'Enterobacterias', org: 'Yersinia enterocolitica', cat: 'Transmisión', tincion: 'negativo',
+      q: '¿Cuál es el período de incubación de la infección por Yersinia enterocolitica?',
+      a: 'De 3 a 7 días, tras la ingesta de alimentos o agua contaminada (transmisión fecal-oral).'
+    },
+    {
+      id: 'b151', grupo: 'Enterobacterias', org: 'Yersinia enterocolitica', cat: 'Patogenia', tincion: 'negativo',
+      q: '¿Qué ocurre si Yersinia enterocolitica invade el sistema porta?',
+      a: 'Aparecen lesiones hepáticas, además del cuadro intestinal por necrosis de las placas de Peyer y linfoadenitis mesentérica.'
+    },
+    {
+      id: 'b152', grupo: 'Espiroquetas', org: 'Treponema pallidum', cat: 'Transmisión', tincion: 'atipica',
+      q: '¿Cuánto tiempo tarda en aparecer el chancro sifilítico y cuándo se pasa a la fase secundaria?',
+      a: 'El chancro aparece tras un período de incubación de 3-4 semanas (21 días); si no se trata, entre 4 y 12 semanas después (antes de que el chancro cure) se produce diseminación hematógena y comienza la fase secundaria.'
+    },
+
+    // --- Comparaciones de alto rendimiento ---
+    {
+      id: 'b153', grupo: 'Clostridium', org: 'C. tetani vs C. botulinum', cat: 'Comparación', tincion: 'positivo',
+      q: '¿Cuál es la diferencia central en el mecanismo de acción entre la toxina tetánica y la botulínica?',
+      a: 'La tetanospasmina bloquea la liberación de GABA en neuronas inhibitorias, generando contracción muscular generalizada (parálisis espástica). La toxina botulínica bloquea la liberación de acetilcolina en la placa motora, generando parálisis flácida. Son mecanismos opuestos en su efecto final, aunque ambas son neurotoxinas.'
+    },
+    {
+      id: 'b154', grupo: 'E. coli patógena', org: 'Comparación de patotipos de E. coli', cat: 'Comparación', tincion: 'negativo',
+      q: '¿Cuál es el mecanismo distintivo de cada patotipo de E. coli diarreogénica?',
+      a: 'ETEC: toxinas LT/LS (secretora, sin invasión). EPEC: adhesión y achatamiento de microvellosidades (diarrea osmótica). EIEC: invasión de la mucosa colónica (disentería). EHEC: toxina Shiga (necrosis, SUH). EAEC: adherencia agregativa, mecanismo poco conocido.'
+    },
+    {
+      id: 'b155', grupo: 'Streptococcus', org: 'S. pyogenes vs S. pneumoniae', cat: 'Comparación', tincion: 'positivo',
+      q: '¿Cómo se diferencian S. pyogenes y S. pneumoniae según su patrón de hemólisis?',
+      a: 'S. pyogenes es beta-hemolítico (hemólisis completa). S. pneumoniae es alfa-hemolítico (hemólisis parcial, NO es beta-hemolítico), lo que ayuda a diferenciarlos en el cultivo en agar sangre.'
+    },
+    {
+      id: 'b156', grupo: 'Neisseria', org: 'N. meningitidis vs N. gonorrhoeae', cat: 'Comparación', tincion: 'negativo',
+      q: '¿Cuál es la principal diferencia epidemiológica entre Neisseria meningitidis y N. gonorrhoeae?',
+      a: 'N. meningitidis se transmite por secreciones nasofaríngeas (vía respiratoria) y causa meningitis/meningococcemia. N. gonorrhoeae se transmite sexualmente y causa uretritis/cervicitis; ambas son diplococos gram negativos "en grano de café" morfológicamente indistinguibles.'
+    },
+    {
+      id: 'b157', grupo: 'Mycobacterium (BAAR)', org: 'M. tuberculosis vs M. leprae', cat: 'Comparación', tincion: 'atipica',
+      q: '¿En qué se diferencian M. tuberculosis y M. leprae en cuanto a su cultivo?',
+      a: 'M. tuberculosis crece en cultivo, aunque lentamente (10-20 días). M. leprae NO crece en ningún medio de cultivo artificial, lo que dificulta su diagnóstico directo y obliga a apoyarse en la clínica, la baciloscopia y la reacción de lepromina.'
+    },
+    {
+      id: 'b158', grupo: 'Enterobacterias', org: 'Salmonella typhi vs Salmonella gastroentérica', cat: 'Comparación', tincion: 'negativo',
+      q: '¿Qué diferencia el reservorio y el comportamiento invasivo de Salmonella typhi frente a la Salmonella gastroentérica?',
+      a: 'S. typhi tiene al hombre como único reservorio y produce bacteriemia sistémica sin diarrea característica. La Salmonella gastroentérica tiene reservorio zoonótico (aves, carnes, huevos) y produce enfermedad localizada con diarrea, con bacteriemia solo en extremos de la vida.'
+    },
+    {
+      id: 'b159', grupo: 'Bacilos Gram(-) curvados', org: 'Campylobacter jejuni vs C. fetus', cat: 'Comparación', tincion: 'negativo',
+      q: '¿Cuál es la diferencia clínica principal entre Campylobacter jejuni y C. fetus?',
+      a: 'C. jejuni es termófilo y causa enteritis (con posible Guillain-Barré). C. fetus NO es termófilo y NO causa enteritis, sino infecciones sistémicas (bacteriemia, meningitis, endocarditis) en inmunodeprimidos.'
+    },
+    {
+      id: 'b160', grupo: 'Staphylococcus', org: 'S. aureus vs estafilococos coagulasa negativa', cat: 'Comparación', tincion: 'positivo',
+      q: '¿Qué prueba de laboratorio permite diferenciar rápidamente a S. aureus del resto de los estafilococos?',
+      a: 'La prueba de coagulasa: S. aureus es coagulasa positivo, mientras que S. epidermidis, S. saprophyticus y S. lugdunensis son coagulasa negativos.'
+    },
+    {
+      id: 'b161', grupo: 'Bacillus', org: 'Bacillus anthracis vs Clostridium tetani/botulinum', cat: 'Comparación', tincion: 'positivo',
+      q: '¿Qué característica comparten Bacillus anthracis y el género Clostridium, a pesar de pertenecer a géneros distintos?',
+      a: 'Ambos son bacilos gram positivos formadores de esporas muy resistentes en el ambiente; la diferencia clave es que Bacillus es aerobio (o anaerobio facultativo) mientras que Clostridium es anaerobio estricto.'
+    },
+    {
+      id: 'b162', grupo: 'Espiroquetas', org: 'Treponema pallidum vs Leptospira', cat: 'Comparación', tincion: 'atipica',
+      q: '¿Qué tienen en común el diagnóstico directo de Treponema pallidum y Leptospira?',
+      a: 'Ninguno de los dos se observa con tinción de Gram convencional ni se cultiva fácilmente; ambos se visualizan característicamente por microscopía de campo oscuro.'
+    },
+    {
+      id: 'b163', grupo: 'Corineformes', org: 'Listeria vs Corynebacterium diphtheriae', cat: 'Comparación', tincion: 'positivo',
+      q: '¿Qué tienen en común Listeria monocytogenes y Corynebacterium diphtheriae en cuanto a su diagnóstico indirecto?',
+      a: 'En ambos casos NO se realiza diagnóstico serológico indirecto: en Listeria por las reacciones cruzadas con otras bacterias, y en C. diphtheriae porque la bacteria nunca pasa a la sangre (solo lo hace su toxina).'
+    },
   ],
   mc: [
     {
@@ -1114,6 +1193,73 @@ window.MODULE = {
       q: '¿De qué célula es parásito intracelular obligado Legionella en el ambiente, antes de infectar al ser humano?',
       options: ['Protozoos de vida libre', 'Eritrocitos', 'Células epiteliales vegetales', 'Artrópodos vectores'],
       correct: 0, explain: 'Legionella es parásito intracelular obligado de protozoos de vida libre presentes en el agua, lo que le permite sobrevivir y replicarse en el ambiente.'
+    },
+
+    {
+      id: 'mc56', grupo: 'Clostridium', org: 'C. tetani vs C. botulinum', cat: 'Opción múltiple', tincion: 'positivo', type: 'mc',
+      q: 'Un paciente presenta parálisis flácida progresiva con ptosis y diplopía tras consumir una conserva casera. ¿Qué toxina es la responsable y qué neurotransmisor bloquea?',
+      options: ['Tetanospasmina; bloquea GABA', 'Toxina botulínica; bloquea acetilcolina', 'Toxina diftérica; bloquea la síntesis proteica', 'Toxina Shiga; bloquea los ribosomas'],
+      correct: 1, explain: 'El cuadro descrito (parálisis flácida tras alimento enlatado) es clásico de botulismo; la toxina botulínica bloquea la liberación de acetilcolina en la placa motora.'
+    },
+    {
+      id: 'mc57', grupo: 'E. coli patógena', org: 'Comparación de patotipos de E. coli', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: 'Un viajero desarrolla diarrea acuosa sin fiebre ni sangre a los pocos días de llegar a un país tropical. ¿Qué patotipo de E. coli es el más probable?',
+      options: ['EHEC (toxina Shiga)', 'ETEC (toxinas LT/LS)', 'EIEC (invasiva)', 'EPEC (adherente)'],
+      correct: 1, explain: 'La "diarrea del viajero" clásica, acuosa y sin inflamación, es producida típicamente por ETEC mediante sus toxinas termolábil (LT) y termoestable (LS).'
+    },
+    {
+      id: 'mc58', grupo: 'Streptococcus', org: 'S. pyogenes vs S. pneumoniae', cat: 'Opción múltiple', tincion: 'positivo', type: 'mc',
+      q: 'En un cultivo en agar sangre, una colonia es beta-hemolítica. ¿Cuál de estos organismos es compatible con ese hallazgo?',
+      options: ['Streptococcus pneumoniae', 'Streptococcus pyogenes', 'Streptococcus viridans', 'Enterococcus faecium'],
+      correct: 1, explain: 'S. pyogenes es beta-hemolítico; S. pneumoniae y S. viridans son alfa-hemolíticos, no beta-hemolíticos.'
+    },
+    {
+      id: 'mc59', grupo: 'Neisseria', org: 'N. meningitidis vs N. gonorrhoeae', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: '¿Por qué vía se transmite típicamente Neisseria meningitidis, a diferencia de N. gonorrhoeae?',
+      options: ['Vía sexual', 'Vía respiratoria, por secreciones nasofaríngeas', 'Vía fecal-oral', 'Vía transplacentaria exclusivamente'],
+      correct: 1, explain: 'N. meningitidis se transmite por secreciones respiratorias/nasofaríngeas, mientras que N. gonorrhoeae se transmite por vía sexual.'
+    },
+    {
+      id: 'mc60', grupo: 'Enterobacterias', org: 'Yersinia enterocolitica', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: '¿Cuál es el período de incubación típico de la infección por Yersinia enterocolitica?',
+      options: ['1 a 2 días', '3 a 7 días', '3 a 4 semanas', '2 a 3 meses'],
+      correct: 1, explain: 'El período de incubación de Yersinia enterocolitica es de 3 a 7 días tras la ingesta de alimentos o agua contaminados.'
+    },
+    {
+      id: 'mc61', grupo: 'Espiroquetas', org: 'Treponema pallidum', cat: 'Opción múltiple', tincion: 'atipica', type: 'mc',
+      q: '¿Cuánto tiempo después de la aparición del chancro sifilítico comienza típicamente la fase secundaria si no se trata?',
+      options: ['24 a 48 horas', '4 a 12 semanas después', '2 años después', 'Nunca progresa a fase secundaria'],
+      correct: 1, explain: 'La diseminación hematógena y el inicio de la fase secundaria ocurren entre 4 y 12 semanas después de la aparición del chancro, antes de que este cure espontáneamente.'
+    },
+    {
+      id: 'mc62', grupo: 'Bacilos Gram(-) curvados', org: 'Campylobacter jejuni vs C. fetus', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: '¿Cuál de estas especies de Campylobacter NO causa enteritis y afecta principalmente a inmunodeprimidos con infecciones sistémicas?',
+      options: ['Campylobacter jejuni', 'Campylobacter fetus', 'Campylobacter coli', 'Ambas por igual'],
+      correct: 1, explain: 'A diferencia de C. jejuni (termófilo, causa enteritis), C. fetus no es termófilo y produce infecciones sistémicas en inmunodeprimidos sin causar enteritis.'
+    },
+    {
+      id: 'mc63', grupo: 'Staphylococcus', org: 'Coagulasa', cat: 'Opción múltiple', tincion: 'positivo', type: 'mc',
+      q: '¿Qué prueba bioquímica es coagulasa positiva y distingue a S. aureus del resto de los estafilococos?',
+      options: ['Catalasa', 'Coagulasa', 'Oxidasa', 'Ureasa'],
+      correct: 1, explain: 'La prueba de coagulasa es positiva únicamente en S. aureus; el resto de los estafilococos (epidermidis, saprophyticus, lugdunensis) son coagulasa negativos.'
+    },
+    {
+      id: 'mc64', grupo: 'Bacillus', org: 'Bacillus vs Clostridium', cat: 'Opción múltiple', tincion: 'positivo', type: 'mc',
+      q: '¿Cuál es la diferencia respiratoria clave entre el género Bacillus y el género Clostridium?',
+      options: ['Bacillus es anaerobio estricto y Clostridium aerobio estricto', 'Bacillus es aerobio/facultativo y Clostridium es anaerobio estricto', 'Ambos son anaerobios estrictos', 'Ambos son aerobios estrictos'],
+      correct: 1, explain: 'Bacillus es aerobio o anaerobio facultativo, mientras que Clostridium es anaerobio estricto; ambos comparten la capacidad de esporular.'
+    },
+    {
+      id: 'mc65', grupo: 'Corineformes', org: 'Listeria vs Corynebacterium diphtheriae', cat: 'Opción múltiple', tincion: 'positivo', type: 'mc',
+      q: '¿Por qué motivo NO se hace diagnóstico serológico indirecto en Corynebacterium diphtheriae?',
+      options: ['Porque genera reacciones cruzadas con Listeria', 'Porque la bacteria nunca pasa a la sangre, solo su toxina', 'Porque no genera ningún tipo de respuesta inmune', 'Porque el paciente siempre está vacunado'],
+      correct: 1, explain: 'La bacteria permanece localizada en la faringe; solo la exotoxina llega a la sangre, por lo que buscar anticuerpos contra la bacteria misma no es útil.'
+    },
+    {
+      id: 'mc66', grupo: 'Bacilos Gram(-) exigentes', org: 'Brucella spp.', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: '¿Cuál es el período de incubación habitual de la brucelosis?',
+      options: ['1 a 4 días', '1 a 4 semanas', '6 meses a 1 año', 'No tiene incubación definida'],
+      correct: 1, explain: 'El período de incubación de la brucelosis es de 1 a 4 semanas.'
     },
   ]
 };

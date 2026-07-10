@@ -251,5 +251,24 @@ window.MODULE = {
       options: ['Ambas son de virus inactivado', 'Ambas son de virus vivo atenuado y se aplican en dosis única', 'Ambas requieren 3 dosis', 'Ninguna tiene uso en Argentina'],
       correct: 1, explain: 'Ambas son vacunas de virus vivo atenuado que se aplican en una única dosis.'
     },
+
+    {
+      id: 'tmc13', grupo: 'Vacunas', org: 'HPV', cat: 'Opción múltiple', tincion: 'vacunas', type: 'mc',
+      q: '¿Hasta qué edad se recomienda la aplicación de la vacuna Gardasil 9 contra el VPH?',
+      options: ['Hasta los 18 años', 'Hasta los 26 años', 'Hasta los 35 años', 'No tiene límite de edad'],
+      correct: 1, explain: 'Se aplica de rutina a los 11-12 años, y se recomienda su aplicación hasta los 26 años.'
+    },
+    {
+      id: 'tmc14', grupo: 'Ventanas diagnósticas', org: 'Hantavirus', cat: 'Opción múltiple', tincion: 'ventanas', type: 'mc',
+      q: '¿Qué estudio es más apropiado entre los días 7 y 10 de evolución de una sospecha de hantavirus?',
+      options: ['Solo IgM', 'PCR (un resultado positivo confirma, uno negativo no descarta)', 'Solo cultivo viral', 'Biopsia pulmonar'],
+      correct: 1, explain: 'Entre los días 7 y 10, la PCR es el estudio de elección: un resultado positivo confirma, pero uno negativo no descarta la infección.'
+    },
+    {
+      id: 'tmc15', grupo: 'Organismos complementarios', org: 'Actinobacillus', cat: 'Opción múltiple', tincion: 'complementos', type: 'mc',
+      q: '¿A qué grupo de bacterias pertenece Actinobacillus, asociado a endocarditis de crecimiento lento?',
+      options: ['HACEK', 'Enterobacterias', 'Micoplasmas', 'Espiroquetas'],
+      correct: 0, explain: 'Actinobacillus es uno de los géneros del grupo HACEK, cocobacilos exigentes de la bucofaringe asociados a endocarditis subaguda de difícil diagnóstico.'
+    },
   ]
 };

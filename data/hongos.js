@@ -313,6 +313,33 @@ window.MODULE = {
       q: '¿Qué zonas parasita Trichophyton?',
       a: 'Parasita la piel de las partes descubiertas de las extremidades superiores, los pelos y las uñas.'
     },
+
+    // --- Comparaciones de alto rendimiento ---
+    {
+      id: 'h57', grupo: 'Micosis profundas', org: 'Comparación de micosis profundas dimórficas', cat: 'Comparación', tincion: 'profunda',
+      q: '¿Qué diferencia a Cryptococcus neoformans de Histoplasma, Paracoccidioides y Coccidioides en cuanto a su forma?',
+      a: 'Estos tres últimos son dimórficos térmicos (moho a temperatura ambiente, levadura a temperatura corporal). Cryptococcus neoformans es monomorfo (siempre levadura) y es el único capsulado del grupo.'
+    },
+    {
+      id: 'h58', grupo: 'Micosis profundas', org: 'Histoplasma vs Coccidioides', cat: 'Comparación', tincion: 'profunda',
+      q: '¿En qué se diferencian las zonas endémicas de Histoplasma capsulatum y Coccidioides en Argentina?',
+      a: 'Histoplasma es propio de la pampa húmeda (climas templados y húmedos, guano de aves). Coccidioides es propio de la zona seca de precordillera (Santiago del Estero, Catamarca, San Juan, San Luis, La Rioja, Mendoza, La Pampa).'
+    },
+    {
+      id: 'h59', grupo: 'Micosis oportunistas', org: 'Candida vs Cryptococcus', cat: 'Comparación', tincion: 'oportunista',
+      q: '¿En qué se diferencian Candida y Cryptococcus neoformans en su tinción de Gram y su reproducción?',
+      a: 'Candida se tiñe Gram positiva y se reproduce por gemación, formando pseudohifas al invadir tejido. Cryptococcus es capsulado, se identifica mejor con tinta china que con Gram, y no forma pseudohifas.'
+    },
+    {
+      id: 'h60', grupo: 'Micosis oportunistas', org: 'Aspergillus vs Mucor', cat: 'Comparación', tincion: 'oportunista',
+      q: '¿Qué tienen en común Aspergillus y Mucor como oportunistas, y en qué se diferencian sus formas clínicas más graves?',
+      a: 'Ambos son mohos ambientales que ingresan por vía inhalatoria y afectan a inmunodeprimidos. Aspergillus tiene formas alérgicas, colonizantes e invasivas con compromiso de SNC en el 40%; Mucor se distingue por su forma rinocerebral, avanzando a través de la lámina cribosa.'
+    },
+    {
+      id: 'h61', grupo: 'Micosis superficiales', org: 'Epidermophyton vs Microsporum vs Trichophyton', cat: 'Comparación', tincion: 'superficial',
+      q: '¿Cómo se diferencian los tres géneros de dermatofitos según la zona del cuerpo que prefieren parasitar?',
+      a: 'Epidermophyton: región inguinal principalmente (también pies, mama, cabeza). Microsporum: piel de cara y cuello, y pelos (con alopecia cicatrizal). Trichophyton: piel de zonas descubiertas de brazos, pelos y uñas.'
+    },
   ],
   mc: [
     {
@@ -464,6 +491,31 @@ window.MODULE = {
       q: '¿Dónde se encuentra la fase micelial (moho) de Histoplasma capsulatum?',
       options: ['Solo en los tejidos del huésped', 'Solo en el suelo, nunca en los tejidos', 'Tanto en el suelo como en los tejidos por igual', 'Solo dentro de macrófagos'],
       correct: 1, explain: 'La fase micelial de Histoplasma se encuentra exclusivamente en el suelo; en los tejidos siempre se presenta como levadura.'
+    },
+
+    {
+      id: 'hmc26', grupo: 'Micosis profundas', org: 'Comparación de micosis profundas', cat: 'Opción múltiple', tincion: 'profunda', type: 'mc',
+      q: '¿Cuál de estas micosis profundas es monomorfa (siempre levadura) y capsulada, a diferencia de las demás?',
+      options: ['Histoplasma capsulatum', 'Paracoccidioides brasiliensis', 'Cryptococcus neoformans', 'Coccidioides immitis'],
+      correct: 2, explain: 'Cryptococcus neoformans es monomorfo termal (siempre levadura) y es el único capsulado entre las micosis profundas; el resto son dimórficos.'
+    },
+    {
+      id: 'hmc27', grupo: 'Micosis oportunistas', org: 'Candida vs Cryptococcus', cat: 'Opción múltiple', tincion: 'oportunista', type: 'mc',
+      q: '¿Cómo se tiñe Candida con la técnica de Gram, a diferencia de la mayoría de las bacterias gram negativas del tubo digestivo?',
+      options: ['Gram negativa', 'Gram positiva', 'No se tiñe con Gram', 'Ácido-alcohol resistente'],
+      correct: 1, explain: 'A pesar de convivir con enterobacterias gram negativas en el tubo digestivo, Candida (un hongo) se tiñe Gram positiva.'
+    },
+    {
+      id: 'hmc28', grupo: 'Micosis oportunistas', org: 'Mucor', cat: 'Opción múltiple', tincion: 'oportunista', type: 'mc',
+      q: '¿Qué factor de riesgo clásico (además de la inmunosupresión) predispone especialmente a la mucormicosis?',
+      options: ['Sobrecarga de hierro / cetoacidosis diabética', 'Déficit de vitamina C', 'Hipotiroidismo', 'Anemia ferropénica'],
+      correct: 0, explain: 'Mucor tiene gran afinidad por el hierro, por lo que estados de sobrecarga de hierro o cetoacidosis diabética (que altera el metabolismo del hierro) son factores de riesgo clásicos.'
+    },
+    {
+      id: 'hmc29', grupo: 'Micosis superficiales', org: 'Dermatofitos', cat: 'Opción múltiple', tincion: 'superficial', type: 'mc',
+      q: '¿Cuál de estos géneros de dermatofitos parasita típicamente la región inguinal?',
+      options: ['Epidermophyton', 'Microsporum', 'Trichophyton', 'Ninguno; los tres evitan la ingle'],
+      correct: 0, explain: 'Epidermophyton parasita habitualmente la región inguinal, además de espacios interdigitales de los pies, mama y cabeza.'
     },
   ]
 };
