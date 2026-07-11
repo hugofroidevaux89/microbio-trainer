@@ -83,6 +83,11 @@ window.MODULE = {
       a: 'Habita en la cavidad oral de muchos animales; se transmite por mordedura, causando infección de piel con formación de abscesos (rara vez sistémica).'
     },
     {
+      id: 'b164', grupo: 'Bacilos Gram(-) exigentes', org: 'Pasteurella multocida', cat: 'Características', tincion: 'negativo',
+      q: '¿Qué características morfológicas y bioquímicas tiene Pasteurella multocida?',
+      a: 'Cocobacilo móvil, anaerobio facultativo, catalasa y oxidasa positivas.'
+    },
+    {
       id: 'b121', grupo: 'Bacilos Gram(-) exigentes', org: 'Pasteurella multocida', cat: 'Diagnóstico', tincion: 'negativo', tipoDx: 'directo',
       q: '¿Cómo se diagnostica la infección por Pasteurella multocida? (diagnóstico directo)',
       a: 'Tinción de Gram y búsqueda de antígeno (Ag) — diagnóstico directo; no se realiza serología.'
@@ -92,6 +97,11 @@ window.MODULE = {
       id: 'b14', grupo: 'Bacilos Gram(-) exigentes', org: 'Francisella tularensis', cat: 'General', tincion: 'negativo',
       q: '¿Cuál es el reservorio de Francisella tularensis y qué cuadros clínicos produce?',
       a: 'Reservorio: conejos, gatos, garrapatas (carnes mal cocidas, agua o polvo contaminado). Produce fiebre, cefalea, pápula cutánea que ulcera con adenopatía, conjuntivitis con adenopatía preauricular, o cuadro neumónico si se inhala.'
+    },
+    {
+      id: 'b165', grupo: 'Bacilos Gram(-) exigentes', org: 'Francisella tularensis', cat: 'Características', tincion: 'negativo',
+      q: '¿Qué características morfológicas y nutricionales tiene Francisella tularensis?',
+      a: 'Cocobacilo inmóvil, no esporulado, exigente en cisteína para su crecimiento.'
     },
     {
       id: 'b122', grupo: 'Bacilos Gram(-) exigentes', org: 'Francisella tularensis', cat: 'Diagnóstico', tincion: 'negativo', tipoDx: 'directo',
@@ -148,8 +158,13 @@ window.MODULE = {
     },
     {
       id: 'b23', grupo: 'Haemophilus', org: 'Haemophilus aegyptius', cat: 'Clínica', tincion: 'negativo',
-      q: '¿Qué cuadros produce Haemophilus aegyptius?',
-      a: 'Conjuntivitis purulenta, enfermedades genitales, y la fiebre púrpura brasileña (dolor abdominal, lesiones hemorrágicas en piel, colapso vascular y muerte).'
+      q: '¿Qué cuadros locales (no sistémicos) produce Haemophilus aegyptius?',
+      a: 'Conjuntivitis purulenta y enfermedades genitales.'
+    },
+    {
+      id: 'b166', grupo: 'Haemophilus', org: 'Haemophilus aegyptius', cat: 'Clínica', tincion: 'negativo',
+      q: '¿Qué es la fiebre púrpura brasileña y qué agente la produce?',
+      a: 'Es un cuadro sistémico grave producido por Haemophilus aegyptius: dolor abdominal, lesiones hemorrágicas en piel, colapso vascular y muerte.'
     },
     {
       id: 'b24', grupo: 'Haemophilus', org: 'Bacterias HACEK', cat: 'General', tincion: 'negativo',
@@ -1260,6 +1275,25 @@ window.MODULE = {
       q: '¿Cuál es el período de incubación habitual de la brucelosis?',
       options: ['1 a 4 días', '1 a 4 semanas', '6 meses a 1 año', 'No tiene incubación definida'],
       correct: 1, explain: 'El período de incubación de la brucelosis es de 1 a 4 semanas.'
+    },
+
+    {
+      id: 'mc67', grupo: 'Bacilos Gram(-) exigentes', org: 'Pasteurella multocida', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: 'Un paciente consulta por un absceso en la mano tras ser mordido por su gato. ¿Cuál es el agente más probable?',
+      options: ['Pasteurella multocida', 'Legionella pneumophila', 'Bordetella pertussis', 'Brucella spp.'],
+      correct: 0, explain: 'Pasteurella multocida forma parte de la cavidad oral de muchos animales y se transmite clásicamente por mordedura, causando infección local con abscesos.'
+    },
+    {
+      id: 'mc68', grupo: 'Bacilos Gram(-) exigentes', org: 'Francisella tularensis', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: '¿Qué nutriente específico requiere Francisella tularensis para crecer en cultivo?',
+      options: ['Cisteína', 'Hierro', 'Nicotinamida', 'Ácidos micólicos'],
+      correct: 0, explain: 'Francisella tularensis es exigente en cisteína para su desarrollo en cultivo.'
+    },
+    {
+      id: 'mc69', grupo: 'Haemophilus', org: 'Haemophilus aegyptius', cat: 'Opción múltiple', tincion: 'negativo', type: 'mc',
+      q: '¿Qué cuadro sistémico grave, con colapso vascular y alta mortalidad, puede producir Haemophilus aegyptius?',
+      options: ['Fiebre púrpura brasileña', 'Fiebre tifoidea', 'Síndrome urémico hemolítico', 'Fiebre de Pontiac'],
+      correct: 0, explain: 'La fiebre púrpura brasileña es un cuadro sistémico grave (dolor abdominal, lesiones hemorrágicas, colapso vascular y muerte) producido por H. aegyptius.'
     },
   ]
 };

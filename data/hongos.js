@@ -309,9 +309,19 @@ window.MODULE = {
       a: 'Parasita la piel de la cara y el cuello, y los pelos, dando lesiones en escarapela; con frecuencia deja alopecia cicatrizal.'
     },
     {
+      id: 'h55b', grupo: 'Micosis superficiales', org: 'Microsporum', cat: 'Diagnóstico', tincion: 'superficial', tipoDx: 'directo',
+      q: '¿Cómo se diagnostica una infección por Microsporum?',
+      a: 'Igual que el resto de los dermatofitos: raspado de piel/pelos, observación al microscopio con gota de potasa, y cultivo en Sabouraud glucosado con antimicrobianos (5-15 días).'
+    },
+    {
       id: 'h56', grupo: 'Micosis superficiales', org: 'Trichophyton', cat: 'Clínica', tincion: 'superficial',
       q: '¿Qué zonas parasita Trichophyton?',
       a: 'Parasita la piel de las partes descubiertas de las extremidades superiores, los pelos y las uñas.'
+    },
+    {
+      id: 'h56b', grupo: 'Micosis superficiales', org: 'Trichophyton', cat: 'Diagnóstico', tincion: 'superficial', tipoDx: 'directo',
+      q: '¿Cómo se diagnostica una infección por Trichophyton?',
+      a: 'Igual que el resto de los dermatofitos: raspado de piel/pelos/uñas, observación al microscopio con gota de potasa, y cultivo en Sabouraud glucosado con antimicrobianos (5-15 días); NO se hace diagnóstico indirecto porque el hongo no pasa a la sangre.'
     },
 
     // --- Comparaciones de alto rendimiento ---
@@ -516,6 +526,13 @@ window.MODULE = {
       q: '¿Cuál de estos géneros de dermatofitos parasita típicamente la región inguinal?',
       options: ['Epidermophyton', 'Microsporum', 'Trichophyton', 'Ninguno; los tres evitan la ingle'],
       correct: 0, explain: 'Epidermophyton parasita habitualmente la región inguinal, además de espacios interdigitales de los pies, mama y cabeza.'
+    },
+
+    {
+      id: 'hmc30', grupo: 'Micosis superficiales', org: 'Microsporum vs Trichophyton', cat: 'Opción múltiple', tincion: 'superficial', type: 'mc',
+      q: 'Un paciente presenta lesiones en escarapela en cara y cuello, con alopecia cicatrizal. ¿Qué dermatofito es el más probable?',
+      options: ['Epidermophyton', 'Microsporum', 'Trichophyton', 'Malassezia furfur'],
+      correct: 1, explain: 'Microsporum parasita típicamente la piel de cara y cuello, y los pelos, dejando con frecuencia alopecia cicatrizal.'
     },
   ]
 };

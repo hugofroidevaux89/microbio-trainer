@@ -135,12 +135,27 @@ window.MODULE = {
       q: '¿Cómo se diagnostica el Zika?',
       a: 'Sangre (leucopenia, trombocitopenia, hemoconcentración), búsqueda de Ag, búsqueda de Ig, PCR.'
     },
+    {
+      id: 'v20b', grupo: 'Arbovirus', org: 'Zika', cat: 'Transmisión', tincion: 'arn',
+      q: '¿Qué vector transmite el Zika y cómo es el ciclo de transmisión?',
+      a: 'Al igual que el dengue, se transmite por el mosquito Aedes aegypti: un mosquito no infectado pica a una persona infectada, se infecta, y luego pica a una persona sana transmitiéndole el virus.'
+    },
 
     // --- Chikungunya ---
     {
       id: 'v21', grupo: 'Arbovirus', org: 'Chikungunya', cat: 'Clínica', tincion: 'arn',
       q: '¿Cuál es el cuadro clínico del Chikungunya y qué particularidad tiene respecto al embarazo?',
       a: 'Fiebre, mialgia, artralgia, cefalea, náuseas, erupción cutánea (incubación 2-12 días). A diferencia del Zika, el Chikungunya NO se contagia durante el embarazo.'
+    },
+    {
+      id: 'v21b', grupo: 'Arbovirus', org: 'Chikungunya', cat: 'Transmisión', tincion: 'arn',
+      q: '¿Qué vector transmite el Chikungunya y qué características virológicas comparte con el dengue?',
+      a: 'El mismo vector, Aedes aegypti. Comparte con el dengue el ser un virus ARN envuelto de la misma familia, con el mismo mecanismo de transmisión (mosquito no infectado pica a un enfermo, se infecta, y luego pica a una persona sana).'
+    },
+    {
+      id: 'v21c', grupo: 'Arbovirus', org: 'Chikungunya', cat: 'Diagnóstico', tincion: 'arn', tipoDx: 'ambos',
+      q: '¿Cómo se diagnostica el Chikungunya?',
+      a: 'Igual que el dengue y el Zika: sangre (leucopenia, trombocitopenia, hemoconcentración), búsqueda de Ag, búsqueda de Ig y PCR.'
     },
 
     // --- Influenza ---
@@ -939,6 +954,31 @@ window.MODULE = {
       q: '¿Qué relación existe entre la aparición del exantema en el sarampión y la respuesta inmune del paciente?',
       options: ['El exantema aparece antes de que se genere cualquier respuesta inmune', 'El exantema coincide con la aparición de la respuesta inmune y la eliminación del virus', 'El exantema es causado por una reacción alérgica no relacionada con el virus', 'El exantema aparece solo si el paciente está inmunodeprimido'],
       correct: 1, explain: 'La patogenia del sarampión es en parte inmunomediada: el exantema coincide con la aparición de la respuesta inmune del huésped y la eliminación del virus.'
+    },
+
+    {
+      id: 'vmc38', grupo: 'Arbovirus', org: 'Zika vs Chikungunya', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿Qué vector transmite tanto al Zika como al Chikungunya?',
+      options: ['Aedes aegypti', 'Anopheles', 'Triatoma infestans', 'Phlebotomus'],
+      correct: 0, explain: 'Ambos comparten el mismo vector que el dengue: el mosquito Aedes aegypti.'
+    },
+    {
+      id: 'vmc39', grupo: 'Arbovirus', org: 'Chikungunya', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿Cuál es el período de incubación del Chikungunya?',
+      options: ['1 a 2 días', '2 a 12 días', '1 a 2 meses', '6 meses'],
+      correct: 1, explain: 'El período de incubación del Chikungunya es de 2 a 12 días.'
+    },
+    {
+      id: 'vmc40', grupo: 'Virus ARN envueltos', org: 'Parainfluenza', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿Qué serotipo de Parainfluenza se asocia principalmente a neumonía?',
+      options: ['Serotipo 1', 'Serotipo 2', 'Serotipo 3', 'Serotipo 4'],
+      correct: 2, explain: 'El serotipo 3 de Parainfluenza se asocia a neumonía; los serotipos 1 y 2 a laringitis, y el 4 a infecciones leves.'
+    },
+    {
+      id: 'vmc41', grupo: 'Virus ARN envueltos', org: 'Metapneumovirus', cat: 'Opción múltiple', tincion: 'arn', type: 'mc',
+      q: '¿A qué otro virus respiratorio se parece clínicamente el cuadro producido por Metapneumovirus?',
+      options: ['Al VSR (tos, congestión, secreción nasal, fiebre)', 'Al VIH', 'Al virus de la rabia', 'Al VPH'],
+      correct: 0, explain: 'El Metapneumovirus produce un cuadro similar al VSR, y de agravarse puede derivar en bronquiolitis o neumonía en niños pequeños.'
     },
   ]
 };

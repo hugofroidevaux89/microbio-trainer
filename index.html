@@ -21,30 +21,69 @@
   <p class="intro">Elegí un módulo para repasar. Cada uno guarda tu progreso por separado.</p>
 
   <div class="hub-grid">
-    <a class="hub-card" href="bacterias.html">
+    <a class="hub-card" href="bacterias.html" data-module="bacterias">
       <h3>Bacterias</h3>
-      <p>174 tarjetas</p>
+      <p class="hub-count">… tarjetas</p>
     </a>
-    <a class="hub-card" href="hongos.html">
+    <a class="hub-card" href="hongos.html" data-module="hongos">
       <h3>Hongos</h3>
-      <p>81 tarjetas</p>
+      <p class="hub-count">… tarjetas</p>
     </a>
-    <a class="hub-card" href="parasitos.html">
+    <a class="hub-card" href="parasitos.html" data-module="parasitos">
       <h3>Parásitos</h3>
-      <p>107 tarjetas</p>
+      <p class="hub-count">… tarjetas</p>
     </a>
-    <a class="hub-card" href="virus.html">
+    <a class="hub-card" href="virus.html" data-module="virus">
       <h3>Virus</h3>
-      <p>151 tarjetas</p>
+      <p class="hub-count">… tarjetas</p>
     </a>
-    <a class="hub-card" href="tablas.html">
+    <a class="hub-card" href="tablas.html" data-module="tablas" data-suffix=" · complementos">
       <h3>Tablas</h3>
-      <p>43 tarjetas · complementos</p>
+      <p class="hub-count">… tarjetas · complementos</p>
     </a>
   </div>
 
   <div class="footer-note"></div>
 </div>
 <script src="theme.js"></script>
+<script>
+(function () {
+  function loadModule(name) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'data/' + name + '.js';
+      s.onload = function () {
+        var m = window.MODULE || {};
+        var n = (m.cards || []).length + (m.mc || []).length;
+        s.remove();
+        resolve(n);
+      };
+      s.onerror = function () {
+        s.remove();
+        reject(new Error('No se pudo cargar ' + name));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  // Secuencial: cada data/*.js escribe window.MODULE y no pueden solaparse.
+  (async function () {
+    var cards = document.querySelectorAll('.hub-card[data-module]');
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var name = card.getAttribute('data-module');
+      var countEl = card.querySelector('.hub-count');
+      var suffix = card.getAttribute('data-suffix') || '';
+      try {
+        var n = await loadModule(name);
+        countEl.textContent = n + ' tarjetas' + suffix;
+      } catch (e) {
+        countEl.textContent = '— tarjetas' + suffix;
+      }
+    }
+    delete window.MODULE;
+  })();
+})();
+</script>
 </body>
 </html>

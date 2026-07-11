@@ -111,16 +111,46 @@ window.MODULE = {
       a: 'Es un ciliado de gran tamaño, de ciclo monoxeno, que se transmite por quistes; su reservorio es el cerdo, en zonas rurales tropicales.'
     },
     {
-      id: 'p18', grupo: 'Protozoarios intestinales', org: 'Balantidium coli', cat: 'Clínica', tincion: 'protozoo',
+      id: 'p18', grupo: 'Protozoarios intestinales', org: 'Balantidium coli', cat: 'Patogenia', tincion: 'protozoo',
+      q: '¿Dónde se ubica Balantidium coli en el intestino grueso y qué lesión produce?',
+      a: 'Se ubica en la capa muscular del intestino grueso, produciendo una reacción inflamatoria con formación de úlceras y necrosis, causando enteritis con úlcera y sangrado (disentería).'
+    },
+    {
+      id: 'p18b', grupo: 'Protozoarios intestinales', org: 'Balantidium coli', cat: 'Clínica', tincion: 'protozoo',
       q: '¿Qué formas clínicas puede producir Balantidium coli, desde la asintomática hasta la crónica?',
       a: 'Desde asintomática hasta colitis aguda o disentería balantidiana (diarrea leve a profusa, pujo, tenesmo, dolor cólico, fiebre, deshidratación); la forma crónica se manifiesta con anorexia, pérdida de peso, anemia y episodios alternados de diarrea y constipación.'
+    },
+    {
+      id: 'p18c', grupo: 'Protozoarios intestinales', org: 'Balantidium coli', cat: 'Diagnóstico', tincion: 'protozoo', tipoDx: 'directo',
+      q: '¿Cómo se diagnostica la balantidiasis?',
+      a: 'Observación microscópica de heces — diagnóstico directo.'
     },
 
     // --- Isospora belli ---
     {
-      id: 'p19', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Clínica', tincion: 'protozoo',
+      id: 'p19', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Características', tincion: 'protozoo',
+      q: '¿Qué tipo de protozoo es Isospora belli y qué tipo de ciclo tiene?',
+      a: 'Es un protozoo Apicomplexa, con ciclo biológico monoxeno (un solo huésped); el hombre es el único huésped.'
+    },
+    {
+      id: 'p19b', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Transmisión', tincion: 'protozoo',
+      q: '¿Cómo se transmite Isospora belli y dónde se distribuye?',
+      a: 'Vía fecal-oral, a través de agua o alimentos contaminados (también se ha descripto como ITS); tiene distribución universal, con predominio en zonas cálidas y húmedas.'
+    },
+    {
+      id: 'p19c', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Patogenia', tincion: 'protozoo',
+      q: '¿Cómo produce enfermedad Isospora belli a nivel del tubo digestivo?',
+      a: 'Se localiza y multiplica en las células del tubo digestivo, eliminándose por heces como ooquistes; su reproducción invade y destruye las células epiteliales intestinales, liberando mediadores que causan el síndrome febril y el proceso inflamatorio.'
+    },
+    {
+      id: 'p19d', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Clínica', tincion: 'protozoo',
       q: '¿Cuál es el cuadro clínico de la isosporosis y a qué se asocia?',
       a: 'Se asocia a la diarrea del viajero. A los 7 días de la infección aparece un síndrome febril (2-3 días) seguido de enteritis benigna con diarrea aguda (6-10 deposiciones diarias), heces lientéricas y esteatorreicas sin sangre; en inmunodeprimidos puede ser grave y hasta mortal.'
+    },
+    {
+      id: 'p19e', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Diagnóstico', tincion: 'protozoo', tipoDx: 'directo',
+      q: '¿Cómo se diagnostica la isosporosis?',
+      a: 'Estudio microscópico de las heces (búsqueda de ooquistes) — diagnóstico directo.'
     },
 
     // --- Cyclospora cayetanensis ---
@@ -130,9 +160,24 @@ window.MODULE = {
       a: 'Es endémica en Haití, Nepal y Perú, y se asocia a las estaciones lluviosas; el agua no tratada es la fuente de infección más importante. Sus ooquistes sobreviven incluso a aguas cloradas.'
     },
     {
+      id: 'p20b', grupo: 'Protozoarios intestinales', org: 'Cyclospora cayetanensis', cat: 'Transmisión', tincion: 'protozoo',
+      q: '¿Es Cyclospora cayetanensis una zoonosis? ¿Qué animales pueden infectarse?',
+      a: 'Sí, es una zoonosis que infecta mamíferos, reptiles y aves, además del hombre; tiene ciclo monoxeno, y el producto final de la reproducción sexuada (el ooquiste) se elimina con las heces humanas.'
+    },
+    {
+      id: 'p20c', grupo: 'Protozoarios intestinales', org: 'Cyclospora cayetanensis', cat: 'Patogenia', tincion: 'protozoo',
+      q: '¿Qué alteración produce Cyclospora cayetanensis en la mucosa intestinal?',
+      a: 'Causa inflamación aguda de la lámina propia con infiltración neutrofílica del epitelio, y altera la arquitectura de la mucosa intestinal (acortamiento y ensanchamiento de las vellosidades) por edema difuso e infiltración de células plasmáticas, linfocitos y eosinófilos.'
+    },
+    {
       id: 'p21', grupo: 'Protozoarios intestinales', org: 'Cyclospora cayetanensis', cat: 'Clínica', tincion: 'protozoo',
       q: '¿Cuál es el cuadro clínico de la ciclosporidiosis?',
       a: 'Malestar general, fiebre moderada (1-11 días) seguida de diarrea acuosa explosiva y voluminosa (7 deposiciones diarias) que dura entre 43 y 57 días en inmunocompetentes (hasta 120 días en inmunosuprimidos), generalmente autolimitada.'
+    },
+    {
+      id: 'p21b', grupo: 'Protozoarios intestinales', org: 'Cyclospora cayetanensis', cat: 'Diagnóstico', tincion: 'protozoo', tipoDx: 'directo',
+      q: '¿Cómo se diagnostica la ciclosporidiosis?',
+      a: 'Observación en fresco de las heces y tinción BAAR (ácido-alcohol resistente) modificada — diagnóstico directo, igual que en Cryptosporidium.'
     },
 
     // --- Leishmania ---
@@ -660,6 +705,25 @@ window.MODULE = {
       q: '¿Cuál es el hospedador definitivo natural de Echinococcus granulosus?',
       options: ['El hombre', 'El perro', 'El ovino', 'El caracol'],
       correct: 1, explain: 'El perro es el hospedador definitivo, donde se aloja la tenia adulta; el ovino es el hospedador intermediario natural, y el hombre es un hospedador intermediario accidental.'
+    },
+
+    {
+      id: 'pmc29', grupo: 'Protozoarios intestinales', org: 'Isospora belli', cat: 'Opción múltiple', tincion: 'protozoo', type: 'mc',
+      q: '¿A qué grupo de protozoarios pertenece Isospora belli y cuántos huéspedes tiene su ciclo?',
+      options: ['Ciliado, ciclo heteroxeno', 'Apicomplexa, ciclo monoxeno (un solo huésped: el hombre)', 'Flagelado, ciclo heteroxeno', 'Ameba, sin ciclo definido'],
+      correct: 1, explain: 'Isospora belli es un Apicomplexa de ciclo monoxeno; el hombre es su único huésped.'
+    },
+    {
+      id: 'pmc30', grupo: 'Protozoarios intestinales', org: 'Cyclospora cayetanensis', cat: 'Opción múltiple', tincion: 'protozoo', type: 'mc',
+      q: '¿Es Cyclospora cayetanensis una infección exclusiva del ser humano?',
+      options: ['Sí, exclusiva del hombre', 'No, es una zoonosis que también infecta mamíferos, reptiles y aves', 'Solo infecta aves', 'Solo infecta reptiles'],
+      correct: 1, explain: 'Cyclospora cayetanensis es una zoonosis que puede infectar mamíferos, reptiles y aves además del ser humano.'
+    },
+    {
+      id: 'pmc31', grupo: 'Protozoarios intestinales', org: 'Balantidium coli', cat: 'Opción múltiple', tincion: 'protozoo', type: 'mc',
+      q: '¿En qué capa del intestino grueso se ubica Balantidium coli para producir su lesión característica?',
+      options: ['Mucosa superficial', 'Capa muscular', 'Serosa', 'Submucosa exclusivamente'],
+      correct: 1, explain: 'Balantidium coli se ubica en la capa muscular del intestino grueso, generando una reacción inflamatoria con úlceras y necrosis.'
     },
   ]
 };
